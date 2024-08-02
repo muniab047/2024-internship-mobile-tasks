@@ -17,7 +17,9 @@ class _add_pageState extends State<add_page> {
     return Scaffold(
         appBar: AppBar(
           leading: IconButton(
-            onPressed: null,
+            onPressed: (){
+              Navigator.of(context).pop();
+            },
             icon: Icon(
               Icons.arrow_back_ios,
               color: Color(0XFF3F51F3),

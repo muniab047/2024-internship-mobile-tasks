@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:task_6/widgets/text.dart';
 import 'package:task_6/widgets/card.dart';
+import 'package:task_6/details_page.dart';
 
 class search_page extends StatefulWidget {
   const search_page({super.key});
@@ -39,7 +40,9 @@ class _search_pageState extends State<search_page> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          onPressed: null,
+          onPressed: (){
+            Navigator.of(context).pop();
+          },
           icon: Icon(
             Icons.arrow_back_ios,
             color: Color(0XFF3F51F3),
@@ -123,13 +126,27 @@ class _search_pageState extends State<search_page> {
                               item = product['item'],
                               image = product['image'],
                               rating = product['rating'];
-                          return card(
+                          return GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => details_page(
+                                  image: image,
+                                  item: item,
+                                  name: name,
+                                  price: price,
+                                  rating: rating,
+                                ),
+                              ),
+                            );
+                          },
+                          child: card(
                             image: image,
                             item: item,
                             price: price,
                             product: name,
                             rating: rating,
-                          );
+                          ));
                         },
                       ),
                     )

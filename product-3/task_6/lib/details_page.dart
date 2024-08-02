@@ -5,7 +5,9 @@ import 'package:task_6/widgets/size.dart';
 import 'package:task_6/widgets/text.dart';
 
 class details_page extends StatefulWidget {
-  details_page({super.key});
+  final String ? name, item, image, rating, price;
+
+  details_page({this.price, this.name, this.item, this.image, this.rating, super.key});
 
   @override
   State<details_page> createState() => _details_pageState();
@@ -20,6 +22,9 @@ class _details_pageState extends State<details_page> {
     {'s': '26', 'c':'0XFFF5FAFB', },
     {'s': '27', 'c':'0XFFF5FAFB', },
     ];
+    
+    
+    
   @override
   Widget build(BuildContext context) {
     double ratio(num){
@@ -34,8 +39,9 @@ class _details_pageState extends State<details_page> {
                 children:[ 
                   Container(
                   width: double.infinity,
+                  height: 400,
 
-                  child: Image.asset('assets/img/p6.png', fit: BoxFit.cover),
+                  child: Image.asset(widget.image ?? '', fit: BoxFit.cover),
                 ),
                 Positioned(
                   top: 10,
@@ -45,7 +51,9 @@ class _details_pageState extends State<details_page> {
                               
                               decoration: ShapeDecoration(shape: CircleBorder(), color: Color.fromARGB(255, 255, 255, 255),),
                               child: ElevatedButton(
-                                onPressed: null,
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
                                 child: Icon(Icons.keyboard_arrow_left_sharp, color: Color(0XFF3F51F3), size: ratio(30),),
                                 style: ElevatedButton.styleFrom(
                                   shape:CircleBorder()
@@ -67,7 +75,7 @@ class _details_pageState extends State<details_page> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             text(
-                                txt: 'Men’s shoe',
+                                txt: widget.item,
                                 family: 'Poppins',
                                 weight: FontWeight.w400,
                                 size: 12,
@@ -82,7 +90,7 @@ class _details_pageState extends State<details_page> {
                                   child: Image.asset('assets/icon/image3.png'),
                                 ),
                                 text(
-                                    txt: '(4.0)',
+                                    txt: widget.rating,
                                     family: 'Sora',
                                     weight: FontWeight.w400,
                                     size: 12,
@@ -96,14 +104,14 @@ class _details_pageState extends State<details_page> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             text(
-                              txt: "Derby Leather",
+                              txt: widget.name,
                               family: 'Poppins',
                                   weight: FontWeight.w500,
                                   size: 25,
                                   color: 0xFF3E3E3E,
                             ),
                             text(
-                              txt: "\$12",
+                              txt: widget.price,
                               family: 'Poppins',
                                   weight: FontWeight.w500,
                                   size: 16,
@@ -164,7 +172,7 @@ class _details_pageState extends State<details_page> {
                               child: ElevatedButton(
                                 onPressed: null,
                                 child: Text(
-                                  'ADD',
+                                  'UPDATE',
                                   style: TextStyle(
                                       fontFamily: 'Poppins',
                                       fontWeight: FontWeight.w600,

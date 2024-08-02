@@ -23,6 +23,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      initialRoute: '/',
+      routes: {
+        '/details':(context) => details_page(),
+        '/add' : (context) => add_page(),
+        '/search' : (context) => search_page(),
+        
+
+      },
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
