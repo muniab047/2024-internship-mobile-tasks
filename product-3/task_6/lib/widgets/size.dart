@@ -1,7 +1,5 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
-import 'package:task_6/widgets/text.dart';
+import '../widgets/text.dart';
 
 class product_size extends StatelessWidget {
   final String? size;

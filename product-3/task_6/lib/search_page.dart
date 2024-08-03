@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:task_6/widgets/text.dart';
-import 'package:task_6/widgets/card.dart';
-import 'package:task_6/details_page.dart';
+import '../widgets/card.dart';
+import 'details_page.dart';
 
 class search_page extends StatefulWidget {
   const search_page({super.key});
@@ -45,7 +44,7 @@ class _search_pageState extends State<search_page> {
           },
           icon: Icon(
             Icons.arrow_back_ios,
-            color: Color(0XFF3F51F3),
+            color: const Color(0XFF3F51F3),
             size: ratio(16),
           ),
         ),
@@ -55,7 +54,7 @@ class _search_pageState extends State<search_page> {
               fontFamily: 'Poppins',
               fontWeight: FontWeight.w500,
               fontSize: ratio(16),
-              color: Color(0XFF3E3E3E)),
+              color: const Color(0XFF3E3E3E)),
         ),
         centerTitle: true,
       ),
@@ -72,7 +71,7 @@ class _search_pageState extends State<search_page> {
                   children: [
                     Row(
                       children: [
-                        Expanded(
+                        const Expanded(
                           child: TextField(
                             decoration: InputDecoration(
                                 label: Text(
@@ -93,13 +92,13 @@ class _search_pageState extends State<search_page> {
                         Container(
                           height: 48,
                           width: 48,
-                          margin: EdgeInsets.only(left: 7),
-                          decoration: BoxDecoration(
+                          margin: const EdgeInsets.only(left: 7),
+                          decoration: const BoxDecoration(
                             color: Color(0XFF3F51F3),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(8)),
                           ),
-                          child: Icon(
+                          child: const Icon(
                             Icons.filter_list_rounded,
                             color: Colors.white,
                             size: 30,
@@ -112,7 +111,7 @@ class _search_pageState extends State<search_page> {
                     Container(
                       height: ratio(500),
                       child: GridView.builder(
-                        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                        gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                           maxCrossAxisExtent: 400,
                           crossAxisSpacing: 10,
                           mainAxisSpacing: 10,
@@ -167,16 +166,16 @@ class _search_pageState extends State<search_page> {
                             fontFamily: 'Poppins',
                             fontWeight: FontWeight.w500,
                             fontSize: ratio(12),
-                            color: Color(0XFF3E3E3E)),
+                            color: const Color(0XFF3E3E3E)),
                       ),
                       Container(
                         
                         decoration: BoxDecoration(
-                            color: Color(0XFFF3F3F3),
+                            color: const Color(0XFFF3F3F3),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(ratio(6)))),
                         margin: EdgeInsets.fromLTRB(0, ratio(6), 0, ratio(10)),
-                        child: TextField(
+                        child: const TextField(
                           style: TextStyle(
                               color: const Color.fromARGB(255, 80, 79, 79),
                               fontSize: 15),
@@ -195,14 +194,14 @@ class _search_pageState extends State<search_page> {
                                 fontFamily: 'Poppins',
                                 fontWeight: FontWeight.w500,
                                 fontSize: ratio(12),
-                                color: Color(0XFF3E3E3E)),
+                                color: const Color(0XFF3E3E3E)),
                           ),
                           RangeSlider(
-                              values: RangeValues(30, 80),
+                              values: const RangeValues(30, 80),
                               min: 0,
                               max: 100,
                               divisions: 100,
-                              labels: RangeLabels('20', '50'),
+                              labels: const RangeLabels('20', '50'),
                               onChanged: null),
                         ],
                       ),
@@ -212,7 +211,7 @@ class _search_pageState extends State<search_page> {
                           width: double.infinity,
                           height: ratio(42),
                           decoration: BoxDecoration(
-                            color: Color(0XFF3F51F3),
+                            color: const Color(0XFF3F51F3),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(ratio(8))),
                           ),
@@ -224,7 +223,7 @@ class _search_pageState extends State<search_page> {
                                   fontFamily: 'Poppins',
                                   fontWeight: FontWeight.w600,
                                   fontSize: ratio(12),
-                                  color: Color.fromARGB(255, 255, 255, 255)),
+                                  color: const Color.fromARGB(255, 255, 255, 255)),
                             ),
                             style: ElevatedButton.styleFrom(
                               shape: RoundedRectangleBorder(

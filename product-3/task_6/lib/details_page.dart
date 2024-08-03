@@ -1,8 +1,6 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
-import 'package:task_6/widgets/size.dart';
-import 'package:task_6/widgets/text.dart';
+import '../widgets/size.dart';
+import '../widgets/text.dart';
 
 class details_page extends StatefulWidget {
   final String ? name, item, image, rating, price;
@@ -49,14 +47,14 @@ class _details_pageState extends State<details_page> {
                               margin: EdgeInsets.fromLTRB(ratio(10), ratio(10), ratio(10), ratio(10)),
                               height: ratio(42),
                               
-                              decoration: ShapeDecoration(shape: CircleBorder(), color: Color.fromARGB(255, 255, 255, 255),),
+                              decoration: const ShapeDecoration(shape: CircleBorder(), color: Color.fromARGB(255, 255, 255, 255),),
                               child: ElevatedButton(
                                 onPressed: () {
                                   Navigator.pop(context);
                                 },
-                                child: Icon(Icons.keyboard_arrow_left_sharp, color: Color(0XFF3F51F3), size: ratio(30),),
+                                child: Icon(Icons.keyboard_arrow_left_sharp, color: const Color(0XFF3F51F3), size: ratio(30),),
                                 style: ElevatedButton.styleFrom(
-                                  shape:CircleBorder()
+                                  shape: const CircleBorder()
                                 ),
                               )),
                   
@@ -123,7 +121,7 @@ class _details_pageState extends State<details_page> {
                     ),
                     SizedBox(height: ratio(10),),
                     text(
-                              txt: "Size:",
+                              txt: 'Size:',
                               family: 'Poppins',
                                   weight: FontWeight.w500,
                                   size: 20,
@@ -165,7 +163,7 @@ class _details_pageState extends State<details_page> {
                               margin: EdgeInsets.fromLTRB(ratio(10), ratio(10), ratio(10), ratio(10)),
                               height: ratio(42),
                               decoration: BoxDecoration(
-                                color: Color(0XFF3F51F3),
+                                color: const Color(0XFF3F51F3),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(ratio(8))),
                               ),
@@ -178,7 +176,7 @@ class _details_pageState extends State<details_page> {
                                       fontWeight: FontWeight.w600,
                                       fontSize: ratio(12),
                                       color:
-                                          Color.fromARGB(255, 255, 255, 255)),
+                                          const Color.fromARGB(255, 255, 255, 255)),
                                 ),
                                 style: ElevatedButton.styleFrom(
                                   shape: RoundedRectangleBorder(
@@ -195,11 +193,11 @@ class _details_pageState extends State<details_page> {
                               decoration: BoxDecoration(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(ratio(8))),
-                                  border: Border.all(color: Color(0XFFFF1313))),
+                                  border: Border.all(color: const Color(0XFFFF1313))),
                               child: OutlinedButton(
                                 onPressed: null,
                                 style: OutlinedButton.styleFrom(
-                                  side: BorderSide(color: Colors.transparent),
+                                  side: const BorderSide(color: Colors.transparent),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(
                                         ratio(8)), // Custom border radius
@@ -211,7 +209,7 @@ class _details_pageState extends State<details_page> {
                                     fontFamily: 'Poppins',
                                     fontWeight: FontWeight.w600,
                                     fontSize: ratio(12),
-                                    color: Color(0XFFFF1313),
+                                    color: const Color(0XFFFF1313),
                                   ),
                                 ),
                               )),
