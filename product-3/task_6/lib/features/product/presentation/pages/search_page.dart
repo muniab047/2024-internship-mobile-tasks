@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
-import '../widgets/card.dart';
+
+import '../widgets/product_card.dart';
 import 'details_page.dart';
 
-class search_page extends StatefulWidget {
-  const search_page({super.key});
+class SearchPage extends StatefulWidget {
+  const SearchPage({super.key});
 
   @override
-  State<search_page> createState() => _search_pageState();
+  State<SearchPage> createState() => _SearchPageState();
 }
 
-class _search_pageState extends State<search_page> {
-  double ratio(num) {
+class _SearchPageState extends State<SearchPage> {
+  double ratio(double num) {
     return num * MediaQuery.of(context).size.width / 500;
   }
 
@@ -107,8 +108,9 @@ class _search_pageState extends State<search_page> {
                       ],
                     ),
 
-                    SizedBox(height: ratio(27),),
-                    Container(
+                    SizedBox(height: ratio(27)),
+
+                    SizedBox(
                       height: ratio(500),
                       child: GridView.builder(
                         gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
@@ -129,22 +131,22 @@ class _search_pageState extends State<search_page> {
                           onTap: () {
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (context) => details_page(
-                                  image: image,
-                                  item: item,
-                                  name: name,
-                                  price: price,
-                                  rating: rating,
+                                builder: (context) => DetailsPage(
+                                  image: image ?? '',
+                                  item: item ?? '',
+                                  product: name ?? '',
+                                  price: price ?? '',
+                                  rating: rating ?? '',
                                 ),
                               ),
                             );
                           },
-                          child: card(
-                            image: image,
-                            item: item,
-                            price: price,
-                            product: name,
-                            rating: rating,
+                          child: ProductCardWidget(
+                            image: image ?? '',
+                            item: item ?? '',
+                            price: price ?? '',
+                            product: name ?? '',
+                            rating: rating ?? '',
                           ));
                         },
                       ),
@@ -177,7 +179,7 @@ class _search_pageState extends State<search_page> {
                         margin: EdgeInsets.fromLTRB(0, ratio(6), 0, ratio(10)),
                         child: const TextField(
                           style: TextStyle(
-                              color: const Color.fromARGB(255, 80, 79, 79),
+                              color: Color.fromARGB(255, 80, 79, 79),
                               fontSize: 15),
                           decoration: InputDecoration(
                             border:
@@ -217,19 +219,20 @@ class _search_pageState extends State<search_page> {
                           ),
                           child: ElevatedButton(
                             onPressed: null,
-                            child: Text(
+                           
+                            style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(
+                                    ratio(8)), // Adjust the border radius here
+                              ),
+                            ),
+                             child: Text(
                               'APPLY',
                               style: TextStyle(
                                   fontFamily: 'Poppins',
                                   fontWeight: FontWeight.w600,
                                   fontSize: ratio(12),
                                   color: const Color.fromARGB(255, 255, 255, 255)),
-                            ),
-                            style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(
-                                    ratio(8)), // Adjust the border radius here
-                              ),
                             ),
                           )),
                     ],

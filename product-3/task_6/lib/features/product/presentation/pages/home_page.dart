@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:task_6/details_page.dart';
-import 'package:task_6/widgets/card.dart';
 
-class home_page extends StatelessWidget {
-  home_page({super.key});
+
+import '../widgets/custom_text.dart';
+import '../widgets/product_card.dart';
+import 'details_page.dart';
+
+
+class HomePage extends StatelessWidget {
+  HomePage({super.key});
 
   final products = [
     {
@@ -31,7 +35,7 @@ class home_page extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double ratio(num) {
+    double ratio(double num) {
       return num * MediaQuery.of(context).size.width / 500;
     }
 
@@ -44,15 +48,14 @@ class home_page extends StatelessWidget {
                 children: [
                   Expanded(
                     child: ListTile(
-                      title: Text(
-                        'July 14, 2023',
-                        style: TextStyle(
-                          fontSize: ratio(12),
-                          color: const Color(0xFFABABAB),
-                          fontFamily: 'Syne',
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
+                      title: CustomTextWidget(
+                        text: 'July 14, 2023',
+                        color:  const Color(0xFFABABAB),
+                        weight: FontWeight.w500,
+                        family: 'Syne',
+                        size: ratio(12),
+                      ), 
+
                       subtitle: RichText(
                           text: TextSpan(
                               text: 'Hello ',
@@ -70,9 +73,10 @@ class home_page extends StatelessWidget {
                                     fontSize: ratio(15),
                                     color: const Color.fromARGB(255, 0, 0, 0)))
                           ])),
+
                       leading: Container(
-                        decoration: BoxDecoration(
-                            color: const Color(0xFFCCCCCC),
+                        decoration: const BoxDecoration(
+                            color: Color(0xFFCCCCCC),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
                         width: 50,
@@ -80,7 +84,7 @@ class home_page extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Container(
+                  SizedBox(
                       width: ratio(40),
                       height: ratio(40),
                       child: Image.asset('assets/icon/image1.png')),
@@ -95,20 +99,21 @@ class home_page extends StatelessWidget {
                 Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        'Available Products',
-                        style: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w600,
-                          fontSize: ratio(24),
-                        ),
-                      ),
+
+                       CustomTextWidget(
+                        text: 'Available Products',
+                        weight: FontWeight.w600,
+                        family:  'Poppins',
+                        size: ratio(24),
+                      ), 
+
+                      
                       Container(
                         decoration: BoxDecoration(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(ratio(10))),
                             border: Border.all(
-                              color: Color(0XFFD9D9D9),
+                              color: const Color(0XFFD9D9D9),
                             )),
                         child: IconButton(
                           onPressed: () {
@@ -126,7 +131,7 @@ class home_page extends StatelessWidget {
                 ),
                 Expanded(
                   child: GridView.builder(
-                    gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                    gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                       maxCrossAxisExtent: 400,
                       crossAxisSpacing: 10,
                       mainAxisSpacing: 10,
@@ -144,22 +149,22 @@ class home_page extends StatelessWidget {
                           onTap: () {
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (context) => details_page(
-                                  image: image,
-                                  item: item,
-                                  name: name,
-                                  price: price,
-                                  rating: rating,
+                                builder: (context) => DetailsPage(
+                                  image: image ?? '',
+                                  item: item ?? '',
+                                  product: name ?? '',
+                                  price: price ?? '',
+                                  rating: rating ?? '',
                                 ),
                               ),
                             );
                           },
-                          child: card(
-                            image: image,
-                            item: item,
-                            price: price,
-                            product: name,
-                            rating: rating,
+                          child: ProductCardWidget(
+                            image: image ?? '',
+                            item: item ?? '',
+                            price: price ?? '',
+                            product: name ?? '',
+                            rating: rating ?? '',
                           ));
                     },
                   ),
@@ -167,11 +172,13 @@ class home_page extends StatelessWidget {
               ],
             )),
         floatingActionButton: FloatingActionButton(
-            backgroundColor: Color(0xFF3F51F3),
-            shape: CircleBorder(),
+            backgroundColor: const Color(0xFF3F51F3),
+            shape: const CircleBorder(),
+    
+            
             onPressed: () {
               Navigator.of(context).pushNamed('/add');
             },
-            child: Icon(Icons.add, color: Colors.white)));
+            child: const Icon(Icons.add, color: Colors.white,)));
   }
 }
