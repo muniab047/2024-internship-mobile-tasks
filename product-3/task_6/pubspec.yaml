@@ -32,6 +32,9 @@ dependencies:
     sdk: flutter
 
   device_preview: ^1.2.0
+  dartz: ^0.10.0
+
+  
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -41,6 +44,11 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  
+  mockito: ^5.0.15
+  mocktail: ^0.2.0
+  bloc_test: ^9.0.2
+  build_runner: ^2.1.2
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
