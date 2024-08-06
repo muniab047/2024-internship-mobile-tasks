@@ -1,67 +1,42 @@
-#Project Overview
-This e-commerce app is developed as part of an internship at A2SV. The focus is on mastering Flutter development using Test Driven Development (TDD), Clean Architecture, and the BLoC (Business Logic Component) pattern. This application serves as a practical example to apply and demonstrate these methodologies.
+# eCommerce Application
 
-#Architecture
-Clean Architecture
-Clean Architecture organizes the project into distinct layers, each responsible for specific functionalities. This structure enhances the code's maintainability, scalability, and testability.
+This is a simple eCommerce application built using Flutter. The app allows users to manage products effectively by providing functionalities to add, view, edit, and delete products. Each product includes essential details such as name, description, price, and an optional image.
 
-#Presentation Layer:
-UI Components: The visual elements of the application.
-#Domain Layer:
-Entities: Fundamental classes representing the core business objects.
-Use Cases: Contain the business logic and handle the data flow between the Repository and BLoC.
-Data Layer:
-#Repositories: Define the abstract operations for data manipulation.
-Data Sources: Implement the data operations, such as accessing a local database or remote API.
-#Data Flow
-User Interaction: Users interact with the UI components in the Presentation Layer.
-Business Logic Execution: Use Cases retrieve or update data through the Repository.
-Data Operations: The Repository performs the actual data operations via Data Sources.
-Folder Structure
+## Features
 
-task-6/
-|───lib/
-|    ├── data/
-|    │   ├── models/
-|    │   ├── repositories/
-|    │   ├── data_sources/
-|    │
-|    ├── domain/
-|    │   ├── entities/
-|    │   ├── use_cases/
-|    |   |── repositories/
-|    │
-|    ├── presentation/
-|    │   ├── providers/
-|    │   ├── pages/
-|    │   ├── widgets/
-|    │
-|    ├── main.dart
-|
-|────test/
+- **Product Management:** Users can add new products, view all products, edit existing products, and delete products.
+- **Clean Architecture:** The application follows Clean Architecture principles, ensuring a well-organized codebase that separates concerns effectively.
+- **Test Driven Development (TDD):** The development process includes writing tests to ensure the reliability and correctness of the application.
 
+## Architecture
 
-data/models: Defines the data models.
-data/repositories: Implements repository patterns.
-data/data_sources: Manages data sources like APIs and local storage.
-domain/entities: Contains entity definitions.
-domain/use_cases: Implements business logic.
-presentation/blocs: Contains BLoC classes for state management.
-presentation/pages: Includes the app's UI pages.
-presentation/widgets: Contains reusable UI components.
-main.dart: The app's entry point.
-Test Driven Development (TDD)
-Adopting TDD, the project development follows a cycle of writing tests, implementing functionality, and refactoring code. Tests are categorized by layers:
+The application is structured into different modules to enhance maintainability and scalability:
 
-Unit Tests: Validate individual components like use cases, repositories, and BLoC.
-Widget Tests: Ensure the correct behavior of UI components.
-Integration Tests: Verify the complete interaction flow from the UI to data sources.
-Dependencies
-flutter_bloc: For managing state using the BLoC pattern.
-provider: Facilitates dependency injection.
-get_it: Implements the service locator pattern.
-mockito: Mocks dependencies for testing.
-flutter_test: Supports writing tests.
-Conclusion
-This document provides an overview of the e-commerce app's architecture, data flow, and development practices. Using Clean Architecture and TDD ensures the app is robust, maintainable, and scalable. The BLoC pattern enhances state management, making the app reactive and testable, aligning with best practices in Flutter development.
+- **Core:** Contains shared components, entities, and error handling logic.
+- **Features:** Includes feature-specific modules.
+  - **Product:** Main module for managing products, including the data model, use cases, and repository.
+- **Test:** Contains unit and widget tests for the application.
+
+## Product Model
+
+The `Product` entity includes the following properties:
+
+- `id`: Unique identifier for each product
+- `name`: Name of the product
+- `description`: Description of the product
+- `price`: Price of the product
+- `imageUrl`: Optional URL for the product image
+
+## Use Cases
+
+The application implements the following use cases for product management:
+
+- **InsertProduct:** Adds a new product to the inventory.
+- **UpdateProduct:** Updates the details of an existing product.
+- **DeleteProduct:** Removes a product from the inventory.
+- **GetProduct:** Retrieves the details of a specific product.
+
+## Testing
+
+The application includes unit tests to validate the functionality of the product model and other components, ensuring that all features work as intended.
 
