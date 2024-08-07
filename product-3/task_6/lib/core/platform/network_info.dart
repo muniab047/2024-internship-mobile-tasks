@@ -1,0 +1,3 @@
+class NetworkInfo {
+  const NetworkInfo();
+}
