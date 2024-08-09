@@ -10,6 +10,6 @@ abstract class RemoteDataSource {
   Future <Unit> updateProduct(UpdateProductParams updateProductParams);
   Future <Unit> deleteProduct(DeleteProductParams deleteProductParams);
   
-  Future <Unit> cacheProduct (ProductModel productToCache);
+  
 
 }

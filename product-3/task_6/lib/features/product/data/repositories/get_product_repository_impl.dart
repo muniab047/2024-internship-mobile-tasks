@@ -24,7 +24,7 @@ class GetProductRepositoryImpl implements GetProductRepository{
     if (connection == true){
       try{
         final productModel = await remoteDataSource.getProduct(getProductParams);
-        await remoteDataSource.cacheProduct(productModel);
+        await localDataSource.cacheProduct(productModel);
         ProductEntity productEntity = productModel;
         return Right(productEntity);
       } on ServerException{

@@ -46,7 +46,7 @@ void main(){
     test('should check if the device is online', 
     ()async{
       when(mockRemoteDataSource.getProduct(getProductParams)).thenAnswer((_)async => tproductModel);
-      when(mockRemoteDataSource.cacheProduct(tproductModel)).thenAnswer((_)async => unit);
+      when(mockLocalDataSource.cacheProduct(tproductModel)).thenAnswer((_)async => unit);
       await repository.getProduct(getProductParams: getProductParams);
       verify(mockNetworkInfo.isConnected);
 
@@ -57,7 +57,7 @@ void main(){
 
       test('should return product entity when it succeed', ()async{
         when(mockRemoteDataSource.getProduct(getProductParams)).thenAnswer((_)async => tproductModel);
-        when(mockRemoteDataSource.cacheProduct(tproductModel)).thenAnswer((_)async => unit);
+        when(mockLocalDataSource.cacheProduct(tproductModel)).thenAnswer((_)async => unit);
         
         final result = await repository.getProduct(getProductParams: getProductParams);
         expect(result, Right(tproductEntity));
@@ -66,11 +66,11 @@ void main(){
 
       test('should cache', ()async{
         when(mockRemoteDataSource.getProduct(getProductParams)).thenAnswer((_)async => tproductModel);
-        when(mockRemoteDataSource.cacheProduct(tproductModel)).thenAnswer((_)async => unit);
+        when(mockLocalDataSource.cacheProduct(tproductModel)).thenAnswer((_)async => unit);
         final result = await repository.getProduct(getProductParams: getProductParams);
 
         verify(mockRemoteDataSource.getProduct(getProductParams));
-        verify(mockRemoteDataSource.cacheProduct(tproductModel));
+        verify(mockLocalDataSource.cacheProduct(tproductModel));
         
       });
 
