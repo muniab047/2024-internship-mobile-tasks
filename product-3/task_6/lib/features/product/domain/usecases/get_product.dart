@@ -3,17 +3,17 @@ import 'package:dartz/dartz.dart';
 import '../../../../../core/errors/failure.dart';
 import '../../../../../core/params/params.dart';
 import '../entities/product_entity.dart';
-import '../repositories/product_repository.dart';
+import '../repositories/get_product_repository.dart';
 
 class GetProduct{
-  final ProductRepository productRepository;
+  final GetProductRepository getProductRepository;
 
-  GetProduct({required this.productRepository});
+  GetProduct({required this.getProductRepository});
 
   Future<Either<Failure, ProductEntity>> call({
-    required ProductParams productParams
+    required GetProductParams getProductParams
   })async{
-    return await productRepository.getProduct(productParams: productParams);
+    return await getProductRepository.getProduct(getProductParams:getProductParams);
   }
 
 }

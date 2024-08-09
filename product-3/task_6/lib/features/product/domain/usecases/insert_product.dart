@@ -2,18 +2,17 @@ import 'package:dartz/dartz.dart';
 
 import '../../../../../core/errors/failure.dart';
 import '../../../../../core/params/params.dart';
-import '../entities/product_entity.dart';
-import '../repositories/product_repository.dart';
+import '../repositories/insert_product_repository.dart';
 
 class InsertProduct{
-  final ProductRepository productRepository;
+  final InsertProductRepository insertProductRepository;
 
-  InsertProduct({required this.productRepository});
+  InsertProduct({required this.insertProductRepository});
 
-  Future<Either<Failure, ProductEntity>> call({
-    required ProductParams productParams
+  Future<Either<Failure, Unit>> call({
+    required InsertProductParams insertProductParams
   })async{
-    return await productRepository.getProduct(productParams: productParams);
+    return await insertProductRepository.insertProduct(insertProductParams: insertProductParams);
   }
 
 }

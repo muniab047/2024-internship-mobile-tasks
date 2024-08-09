@@ -1,8 +1,15 @@
+import 'package:dartz/dartz.dart';
+
 import '../../../../core/params/params.dart';
 import '../../domain/entities/product_entity.dart';
 import '../models/product_model.dart';
 
 abstract class RemoteDataSource {
-  Future<ProductModel> getProduct(ProductParams);
+  Future<ProductModel> getProduct(GetProductParams getProductParams);
+  Future <Unit> insertProduct(InsertProductParams insertProductParams);
+  Future <Unit> updateProduct(UpdateProductParams updateProductParams);
+  Future <Unit> deleteProduct(DeleteProductParams deleteProductParams);
+  
+  Future <Unit> cacheProduct (ProductModel productToCache);
 
 }

@@ -10,15 +10,16 @@ import '../../../helpers/test_helper.mocks.dart';
 
 void main(){
   late GetProduct getProduct;
-  late MockProductRepository mockProductRepository;
+  late MockGetProductRepository mockGetProductRepository;
 
 
   setUp((){
-    mockProductRepository = MockProductRepository();
-    getProduct = GetProduct(productRepository: mockProductRepository);
-  });
+    mockGetProductRepository = MockGetProductRepository();
+    getProduct = GetProduct(getProductRepository: mockGetProductRepository);
 
   
+  });
+
 
  
  

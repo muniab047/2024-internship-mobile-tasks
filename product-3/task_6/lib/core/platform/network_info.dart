@@ -1,3 +1,4 @@
-class NetworkInfo {
-  const NetworkInfo();
+abstract class NetworkInfo {
+
+   Future<bool> get isConnected;
 }

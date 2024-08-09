@@ -3,17 +3,17 @@ import 'package:dartz/dartz.dart';
 import '../../../../../core/errors/failure.dart';
 import '../../../../../core/params/params.dart';
 import '../entities/product_entity.dart';
-import '../repositories/product_repository.dart';
+import '../repositories/delete_product_repository.dart';
+
 
 class DeleteProduct{
-  final ProductRepository productRepository;
+  final DeleteProductRepository deleteProductRepository;
 
-  DeleteProduct({required this.productRepository});
+  DeleteProduct ({required this.deleteProductRepository});
 
-  Future<Either<Failure, ProductEntity>> call({
-    required ProductParams productParams
-  })async{
-    return await productRepository.getProduct(productParams: productParams);
-  }
+  Future<Either<Failure, Unit>> call({required DeleteProductParams deleteProductParams})async{
+
+    return await deleteProductRepository.deleteProduct(deleteProductParams: deleteProductParams);
+    }
 
 }
