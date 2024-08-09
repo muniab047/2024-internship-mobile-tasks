@@ -46,6 +46,7 @@ void main(){
     test('should check if the device is online', 
     ()async{
       when(mockRemoteDataSource.getProduct(getProductParams)).thenAnswer((_)async => tproductModel);
+      when(mockRemoteDataSource.cacheProduct(tproductModel)).thenAnswer((_)async => unit);
       await repository.getProduct(getProductParams: getProductParams);
       verify(mockNetworkInfo.isConnected);
 
@@ -76,9 +77,9 @@ void main(){
 
       test ('should return failure when it fails',()async{
         when(mockRemoteDataSource.getProduct(getProductParams)).thenThrow(ServerException());
-        final result =   repository.getProduct(getProductParams: getProductParams);
+        final result = await repository.getProduct(getProductParams: getProductParams);
        
-        expect(result, throwsA(isA<ServerFailure>()));
+        expect(result, Left(tServerFailure));
          });
 
 
