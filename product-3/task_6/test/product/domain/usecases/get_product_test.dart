@@ -20,13 +20,12 @@ void main(){
 
   
   });
-  GetProductParams getProductParams = GetProductParams(id: 1);
+  GetProductParams getProductParams = GetProductParams(id: '1');
   ProductEntity productEntity = const ProductEntity(image: 'assets/img/p4.jpg',
-        item: 'dddsd',
-        name: 'Durby leather shoes',
+        description: "Explore anime characters.",
+        name: "Anime website",
         price: 12.0,
-        sizes: [23, 24, 25],
-        id: 1,);
+        id: "6672752cbd218790438efdb0",);
 
   test('should return product entity when it succeed', ()async{
     when(mockGetProductRepository.getProduct(getProductParams: getProductParams)).thenAnswer((_)async => Right(productEntity));

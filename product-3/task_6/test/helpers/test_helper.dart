@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:mockito/annotations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -9,6 +11,7 @@ import 'package:task_6/features/product/domain/repositories/update_product_repos
 import '../../lib/features/product/data/datasource/local_data_source.dart';
 import '../../lib/features/product/data/datasource/remote_data_source.dart';
 import '../../lib/core/network/network_info.dart';
+import 'package:http/http.dart' as http;
 
 
 @GenerateMocks(
@@ -21,7 +24,9 @@ import '../../lib/core/network/network_info.dart';
     RemoteDataSource,
     NetworkInfo,
     InternetConnectionChecker,
-    SharedPreferences
+    SharedPreferences,
+    http.Client,
+    
     
   ],
   

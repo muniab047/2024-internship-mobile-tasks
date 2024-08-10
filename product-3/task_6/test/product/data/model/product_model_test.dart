@@ -9,12 +9,11 @@ import '../../../helpers/fixtures/fixture_reader.dart';
 
 void main(){
   const testProductModel = const ProductModel(
-        image: 'assets/img/p4.jpg',
-        item: 'dddsd',
-        name: 'Durby leather shoes',
-        price: 12.0,
-        sizes: [23, 24, 25],
-        id: 1,
+        image: 'https://res.cloudinary.com/g5-mobile-track/image/upload/v1718777132/images/zxjhzrflkvsjutgbmr0f.jpg',
+        description: "Explore anime characters.",
+        name: "Anime website",
+        price: 123.0,
+        id: "6672752cbd218790438efdb0",
       );
       
    Map <String, dynamic> testJson = json.decode(fixture('dummy_product_response'));

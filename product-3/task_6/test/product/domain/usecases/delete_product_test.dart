@@ -21,13 +21,8 @@ void main(){
 
   
   });
-  DeleteProductParams deleteProductParams = DeleteProductParams(id: 1);
-  ProductEntity productEntity = const ProductEntity(image: 'assets/img/p4.jpg',
-        item: 'dddsd',
-        name: 'Durby leather shoes',
-        price: 12.0,
-        sizes: [23, 24, 25],
-        id: 1,);
+  DeleteProductParams deleteProductParams = DeleteProductParams(id: '1');
+  
 
   test('should return product entity when it succeed', ()async{
     when(mockDeleteProductRepository.deleteProduct(deleteProductParams: deleteProductParams)).thenAnswer((_)async => Right(unit));

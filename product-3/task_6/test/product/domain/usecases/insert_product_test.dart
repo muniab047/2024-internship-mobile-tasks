@@ -23,11 +23,10 @@ void main(){
   
   });
   InsertProductParams insertProductParams = InsertProductParams(image: 'assets/img/p4.jpg',
-        item: 'dddsd',
-        name: 'Durby leather shoes',
+        description: "Explore anime characters.",
+        name: "Anime website",
         price: 12.0,
-        sizes: [23, 24, 25],
-        id: 1);
+        id: "6672752cbd218790438efdb0",);
  
 
   test('should return unit entity when it succeed', ()async{

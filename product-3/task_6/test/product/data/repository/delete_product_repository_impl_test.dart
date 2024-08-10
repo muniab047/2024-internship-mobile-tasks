@@ -22,7 +22,7 @@ void main(){
   });
 
 
-  DeleteProductParams deleteProductParams = const DeleteProductParams(id: 1);
+  DeleteProductParams deleteProductParams = const DeleteProductParams(id: '1');
   Failure serverFailure = ServerFailure();
   Failure connectionFailure = ConnectionFailure();
 

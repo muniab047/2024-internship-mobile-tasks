@@ -22,13 +22,13 @@ void main(){
   });
 
   group('getProduct', (){
-    final tProductModel = const ProductModel(image: 'assets/img/p4.jpg',
-        item: 'dddsd',
-        name: 'Durby leather shoes',
-        price: 12.0,
-        sizes: [23, 24, 25],
-        id: 1);
-    final GetProductParams getProductParams = GetProductParams(id: 1);
+    final tProductModel = const ProductModel(image: 'https://res.cloudinary.com/g5-mobile-track/image/upload/v1718777132/images/zxjhzrflkvsjutgbmr0f.jpg',
+        description: "Explore anime characters.",
+        name: "Anime website",
+        price: 123.0,
+        id: "6672752cbd218790438efdb0",);
+
+    final GetProductParams getProductParams = GetProductParams(id: '1');
 
     test('should return product model when there is one in cache', ()async{
       when(mockSharedPreferences.getString(any)).thenReturn(fixture('dummy_product_response'));
@@ -52,11 +52,10 @@ void main(){
 
   group('cacheProduct', (){
     final tProductModel = const ProductModel(image: 'assets/img/p4.jpg',
-        item: 'dddsd',
+        description: 'dddsd',
         name: 'Durby leather shoes',
         price: 12.0,
-        sizes: [23, 24, 25],
-        id: 1);
+        id: '1');
 
     test('should cache product model', ()async{
       when(mockSharedPreferences.setString(any, any)).thenAnswer((_) async => true);

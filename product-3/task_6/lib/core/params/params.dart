@@ -1,30 +1,30 @@
+import 'package:flutter/widgets.dart';
+
 class GetProductParams{
-  final int id;
+  final String id;
 
   const GetProductParams({
     required this.id,});
     }
 
 class UpdateProductParams{
-  final int id;
-  final String name, image, item;
-  final List<int> sizes;
+  final String id;
+  final String name, description, image;
   final double price;
 
   const UpdateProductParams({ 
     required this.id, 
     required this.name, 
     required this.image, 
-    required this.item,
-    required this.sizes, 
-    required this.price});
+    required this.price,
+    required this.description}); 
 
   
 }
 
 
 class DeleteProductParams{
-  final int id;
+  final String id;
 
   const DeleteProductParams({
     required this.id
@@ -32,18 +32,16 @@ class DeleteProductParams{
 }
 
 class InsertProductParams{
-  final int id;
-  final String name, image, item;
-  final List<int> sizes;
+  final String id;
+  final String name, description, image;
   final double price;
 
   const InsertProductParams({ 
     required this.id, 
     required this.name, 
-    required this.image, 
-    required this.item,
-    required this.sizes, 
-    required this.price});
+    required this.image,
+    required this.price,
+    required this.description});
 
 
 }

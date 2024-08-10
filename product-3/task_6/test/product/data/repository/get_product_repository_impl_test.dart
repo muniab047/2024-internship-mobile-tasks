@@ -29,8 +29,12 @@ void main(){
     
   });
 
-  GetProductParams getProductParams =GetProductParams(id: 1);
-  ProductModel tproductModel = ProductModel(image: 'y', item: 'y', name: 'y', price: 1.0, sizes: [2,3], id: 1);
+  GetProductParams getProductParams =GetProductParams(id:' 1');
+  ProductModel tproductModel = ProductModel(image: 'assets/img/p4.jpg',
+        description: "Explore anime characters.",
+        name: "Anime website",
+        price: 12.0,
+        id: "6672752cbd218790438efdb0",);
   ProductEntity tproductEntity = tproductModel;
   Failure tServerFailure = ServerFailure();
   Failure tCacheFailure = CacheFailure();
