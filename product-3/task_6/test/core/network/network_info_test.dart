@@ -18,16 +18,15 @@ void main(){
     
   });
 
-  group('isConnected', (){
-    test('should forward the call to DataConnectionChecker.hasConnection', ()async{
-      when(mockInternetConnectionChecker.hasConnection).thenAnswer((_)async=> true);
+  group('NetworkInfoImpl - isConnected', () {
+    test('should forward the call to InternetConnectionChecker.hasConnection', () async {
+      when(mockInternetConnectionChecker.hasConnection).thenAnswer((_) async => true);
 
       final result = await networkInfoImpl.isConnected;
 
       verify(mockInternetConnectionChecker.hasConnection);
       expect(result, true);
     });
-
   });
 
-}
+  }

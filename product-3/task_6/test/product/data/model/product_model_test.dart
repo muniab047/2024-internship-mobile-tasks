@@ -17,31 +17,20 @@ void main(){
       );
       
    Map <String, dynamic> testJson = json.decode(fixture('dummy_product_response'));
+  test('should be subclass of product entity', () {
+    expect(testProductModel, isA<ProductEntity>());
+  });
 
-  test('should be subclass of product entity',
-        () async {
-
-          expect(testProductModel, isA<ProductEntity>());
-        });
-
-  group('from Json', (){
-    test('should return a valid model', () async {
-      
-
+  group('from Json', () {
+    test('should return a valid model', () {
       final result = ProductModel.fromJson(testJson);
-
       expect(result, testProductModel);
     });
 
-    test(
-      'should return json', 
-      ()async {
-        final Map <String, dynamic> expected = testJson;
-                                          
-        expect(testProductModel.toJson(), expected);
-                                          
-                                           });
-
+    test('should return json', () {
+      final Map<String, dynamic> expected = testJson;
+      expect(testProductModel.toJson(), expected);
+    });
   });
 
   

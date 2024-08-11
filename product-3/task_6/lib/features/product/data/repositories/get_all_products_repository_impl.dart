@@ -16,13 +16,14 @@ class GetAllProductsRepositoryImpl implements GetAllProductsRepository{
   GetAllProductsRepositoryImpl({required this.networkInfo, required this.localDataSource, required this.remoteDataSource});
 
   @override
-  Future<Either<Failure, List<ProductEntity>>> getAllproduct()async {
+  Future<Either<Failure, List<ProductEntity>>> getAllProducts()async {
     // TODO: implement getAllproduct
     if (await networkInfo.isConnected){
 
       try{
 
-      final allProductModels = await remoteDataSource.getAllproducts();
+      final allProductModels = await remoteDataSource.getAllProducts();
+      localDataSource.cacheAllProducts(allProductModels);
       final allProductEntities = allProductModels.map((product) => product as ProductEntity).toList();
       return(Right(allProductEntities));
       }on ServerException{
@@ -33,13 +34,12 @@ class GetAllProductsRepositoryImpl implements GetAllProductsRepository{
 
        try{
 
-      final allProductModels = await localDataSource.getAllproducts();
+      final allProductModels = await localDataSource.getAllProducts();
       final allProductEntities = allProductModels.map((product) => product as ProductEntity).toList();
       return(Right(allProductEntities));
       }on CacheException{
         return Left(CacheFailure());
-      }
-      }
+      }}
   }
 
 }

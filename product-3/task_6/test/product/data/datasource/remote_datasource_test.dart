@@ -28,130 +28,201 @@ void main(){
   });
   
 
-  group('get product', (){
+  group('get product', () {
     getProductParams = GetProductParams(id: '1');
 
-    test('should perform a get request on url with parameter being the end point and with application/json header', ()async{
-      when(mockClient.get(any, headers: anyNamed('headers'))).thenAnswer((_)async => http.Response(fixture('dummy_product_response'), 200));
-    remoteDataSourceImpl.getProduct(getProductParams);
-    verify(mockClient.get(Uri.parse('https://g5-flutter-learning-path-be.onrender.com/api/v1/products/${getProductParams.id}'),headers: {'Content-Type': 'application/json'}));
-    
-
+    test('should perform a get request on url with parameter being the end point and with application/json header', () async {
+      when(mockClient.get(any, headers: anyNamed('headers'))).thenAnswer((_) async => http.Response(fixture('dummy_product_response'), 200));
+      remoteDataSourceImpl.getProduct(getProductParams);
+      verify(mockClient.get(Uri.parse('https://g5-flutter-learning-path-be.onrender.com/api/v1/products/${getProductParams.id}'), headers: {'Content-Type': 'application/json'}));
     });
-    
-    test('should return ProductModel when the response code is 200', ()async{
-      when(mockClient.get(any, headers: anyNamed('headers'))).thenAnswer((_)async => http.Response(fixture('dummy_product_response'), 200));
+
+    test('should return ProductModel when the response code is 200', () async {
+      when(mockClient.get(any, headers: anyNamed('headers'))).thenAnswer((_) async => http.Response(fixture('dummy_product_response'), 200));
       final result = await remoteDataSourceImpl.getProduct(getProductParams);
       expect(result, isA<ProductModel>());
       expect(result, ProductModel.fromJson(json.decode(fixture('dummy_product_response'))));
-    
     });
 
-    test('should throw a Server Exception whaen the respose code is 404 or other', ()async{
+    test('should throw a Server Exception when the response code is 404 or other', () async {
       when(mockClient.get(any, headers: anyNamed('headers'))).thenAnswer((_) async => http.Response('Something went wrong', 404));
       final call = await remoteDataSourceImpl.getProduct;
 
-      expect(()=>call(getProductParams), throwsA(isA<ServerException>()));
-    });});
+      expect(() => call(getProductParams), throwsA(isA<ServerException>()));
+    });
+  });
 
+    group('insert product', () {
+      final insertProductParams = const InsertProductParams(
+      image: 'https://res.cloudinary.com/g5-mobile-track/image/upload/v1718777132/images/zxjhzrflkvsjutgbmr0f.jpg',
+      description: "Explore anime characters.",
+      name: "Anime website",
+      price: 123.0,
+      id: "6672752cbd218790438efdb0",
+      );
 
-    group('insert product', (){
-      InsertProductParams insertProductParams = const InsertProductParams( image: 'https://res.cloudinary.com/g5-mobile-track/image/upload/v1718777132/images/zxjhzrflkvsjutgbmr0f.jpg',
-        description: "Explore anime characters.",
-        name: "Anime website",
-        price: 123.0,
-        id: "6672752cbd218790438efdb0",);
-      
-       test('should perform a post request  end point', ()async{
-          when(mockClient.post(any,body: anyNamed('body') , headers: anyNamed('headers'))).thenAnswer((_)async => http.Response('', 200));
-          await remoteDataSourceImpl.insertProduct(insertProductParams);
-          verify(mockClient.post(Uri.parse('https://g5-flutter-learning-path-be.onrender.com/api/v1/products'),headers: {'Content-Type': 'application/json'}, body: anyNamed('body')));
-          });
-
-      
-      test('should return success when it added successfull', ()async{
-        when(mockClient.post(any , body: anyNamed('body'), headers: anyNamed('headers'))).thenAnswer((_)async => http.Response('', 200));
-        final post = await remoteDataSourceImpl.insertProduct(insertProductParams);
-
-        expect(post, unit);
-
+      test('should perform a post request to the end point', () async {
+      when(mockClient.post(any, body: anyNamed('body'), headers: anyNamed('headers')))
+        .thenAnswer((_) async => http.Response('', 200));
+      await remoteDataSourceImpl.insertProduct(insertProductParams);
+      verify(mockClient.post(
+        Uri.parse('https://g5-flutter-learning-path-be.onrender.com/api/v1/products'),
+        headers: {'Content-Type': 'application/json'},
+        body: anyNamed('body'),
+      ));
       });
 
-       test('should retun serverException is status code is 404 or other else', ()async{
-        when(mockClient.post(any , body:anyNamed('body'), headers: anyNamed('headers'))).thenAnswer((_)async => http.Response('something wrong', 400));
-        final call = await remoteDataSourceImpl.insertProduct;
+      test('should return success when it is added successfully', () async {
+      when(mockClient.post(any, body: anyNamed('body'), headers: anyNamed('headers')))
+        .thenAnswer((_) async => http.Response('', 200));
+      final post = await remoteDataSourceImpl.insertProduct(insertProductParams);
 
-        expect(() => call(insertProductParams), throwsA(isA<ServerException>()));
+      expect(post, unit);
+      });
 
+      test('should return ServerException if the status code is 404 or other', () async {
+      when(mockClient.post(any, body: anyNamed('body'), headers: anyNamed('headers')))
+        .thenAnswer((_) async => http.Response('something wrong', 400));
+      final call = await remoteDataSourceImpl.insertProduct;
+
+      expect(() => call(insertProductParams), throwsA(isA<ServerException>()));
       });
     });
 
 
 
-    group('update product', (){
-      UpdateProductParams updateProductParams = const UpdateProductParams( image: 'https://res.cloudinary.com/g5-mobile-track/image/upload/v1718777132/images/zxjhzrflkvsjutgbmr0f.jpg',
-        description: "Explore anime characters.",
-        name: "Anime website",
-        price: 123.0,
-        id: "6672752cbd218790438efdb0",);
-      
-       test('should perform a put request  end point', ()async{
-          when(mockClient.put(any,body: anyNamed('body') , headers: anyNamed('headers'))).thenAnswer((_)async => http.Response('', 200));
-          final jsonString = json.encode(ProductModel(
-                  image: updateProductParams.image, 
-                  description: updateProductParams.description, 
-                  name: updateProductParams.name, 
-                  price: updateProductParams.price, 
-                  id: updateProductParams.id).toJson());
+    group('update product', () {
+      final updateProductParams = const UpdateProductParams(
+      image: 'https://res.cloudinary.com/g5-mobile-track/image/upload/v1718777132/images/zxjhzrflkvsjutgbmr0f.jpg',
+      description: "Explore anime characters.",
+      name: "Anime website",
+      price: 123.0,
+      id: "6672752cbd218790438efdb0",
+      );
 
-          await remoteDataSourceImpl.updateProduct(updateProductParams);
-          verify(mockClient.put(Uri.parse('https://g5-flutter-learning-path-be.onrender.com/api/v1/products/${updateProductParams.id}'),headers: {'Content-Type': 'application/json'}, body: jsonString));
-          });
+      test('should perform a put request to the end point', () async {
+      final jsonString = json.encode(ProductModel(
+        image: updateProductParams.image,
+        description: updateProductParams.description,
+        name: updateProductParams.name,
+        price: updateProductParams.price,
+        id: updateProductParams.id,
+      ).toJson());
 
-      
-      test('should return success when it updated successfully', ()async{
-        when(mockClient.put(any , body: anyNamed('body'), headers: anyNamed('headers'))).thenAnswer((_)async => http.Response('', 200));
-        final post = await remoteDataSourceImpl.updateProduct(updateProductParams);
+      when(mockClient.put(any, body: anyNamed('body'), headers: anyNamed('headers')))
+        .thenAnswer((_) async => http.Response('', 200));
 
-        expect(post, unit);
+      await remoteDataSourceImpl.updateProduct(updateProductParams);
 
+      verify(mockClient.put(
+        Uri.parse('https://g5-flutter-learning-path-be.onrender.com/api/v1/products/${updateProductParams.id}'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonString,
+      ));
       });
 
-       test('should retun serverException when put method response is status code is 404 or other else', ()async{
-        when(mockClient.put(any , body:anyNamed('body'), headers: anyNamed('headers'))).thenAnswer((_)async => http.Response('something wrong', 400));
-        final call = await remoteDataSourceImpl.updateProduct;
+      test('should return success when it is updated successfully', () async {
+      when(mockClient.put(any, body: anyNamed('body'), headers: anyNamed('headers')))
+        .thenAnswer((_) async => http.Response('', 200));
 
-        expect(() => call(updateProductParams), throwsA(isA<ServerException>()));
+      final post = await remoteDataSourceImpl.updateProduct(updateProductParams);
 
+      expect(post, unit);
+      });
+
+      test('should return ServerException if the put method response status code is 404 or other', () async {
+      when(mockClient.put(any, body: anyNamed('body'), headers: anyNamed('headers')))
+        .thenAnswer((_) async => http.Response('something wrong', 400));
+
+      final call = await remoteDataSourceImpl.updateProduct;
+
+      expect(() => call(updateProductParams), throwsA(isA<ServerException>()));
       });
     });
 
 
 
-     group('delete product', (){
-      DeleteProductParams deleteProductParams = const DeleteProductParams( id: "6672752cbd218790438efdb0");
-      
-       test('should perform a post request  end point', ()async{
-          when(mockClient.delete(any,body: anyNamed('body') , headers: anyNamed('headers'))).thenAnswer((_)async => http.Response('', 200));
-          await remoteDataSourceImpl.deleteProduct(deleteProductParams);
-          verify(mockClient.delete(Uri.parse('https://g5-flutter-learning-path-be.onrender.com/api/v1/products/${deleteProductParams.id}'),headers: {'Content-Type': 'application/json'}, body: anyNamed('body')));
-          });
+    group('delete product', () {
+      final deleteProductParams = const DeleteProductParams(id: "6672752cbd218790438efdb0");
 
-      
-      test('should return success when it added successfull', ()async{
-        when(mockClient.delete(any , body: anyNamed('body'), headers: anyNamed('headers'))).thenAnswer((_)async => http.Response('', 200));
+      test('should perform a post request to the end point', () async {
+        when(mockClient.delete(any, body: anyNamed('body'), headers: anyNamed('headers')))
+            .thenAnswer((_) async => http.Response('', 200));
+        await remoteDataSourceImpl.deleteProduct(deleteProductParams);
+        verify(mockClient.delete(
+          Uri.parse('https://g5-flutter-learning-path-be.onrender.com/api/v1/products/${deleteProductParams.id}'),
+          headers: {'Content-Type': 'application/json'},
+          body: anyNamed('body'),
+        ));
+      });
+
+      test('should return success when it is added successfully', () async {
+        when(mockClient.delete(any, body: anyNamed('body'), headers: anyNamed('headers')))
+            .thenAnswer((_) async => http.Response('', 200));
         final post = await remoteDataSourceImpl.deleteProduct(deleteProductParams);
 
         expect(post, unit);
-
       });
 
-       test('should retun serverException is status code is 404 or other else', ()async{
-        when(mockClient.delete(any , body:anyNamed('body'), headers: anyNamed('headers'))).thenAnswer((_)async => http.Response('something wrong', 400));
+      test('should return ServerException if the status code is 404 or other', () async {
+        when(mockClient.delete(any, body: anyNamed('body'), headers: anyNamed('headers')))
+            .thenAnswer((_) async => http.Response('something wrong', 400));
         final call = await remoteDataSourceImpl.deleteProduct;
 
         expect(() => call(deleteProductParams), throwsA(isA<ServerException>()));
+      });
+    });
 
+
+    group('get all products', () {
+      const List<ProductModel> tProductModelList = [
+        const ProductModel(
+          id: '6672752cbd218790438efdb0',
+          name: 'Anime website',
+          description: 'Explore anime characters.',
+          price: 123.0,
+          image:
+              'https://res.cloudinary.com/g5-mobile-track/image/upload/v1718777132/images/zxjhzrflkvsjutgbmr0f.jpg',
+        ),
+        const ProductModel(
+          id: '667275bab905525c145fe08f',
+          name: 'Anime website',
+          description: 'Explore anime characters.',
+          price: 123.0,
+          image:
+              'https://res.cloudinary.com/g5-mobile-track/image/upload/v1718777275/images/t7j2mqmcukrogvvausqj.jpg',
+        ),
+        const ProductModel(
+          id: '667275d7b905525c145fe093',
+          name: 'Anime website',
+          description: 'Explore anime characters.',
+          price: 123.0,
+          image:
+              'https://res.cloudinary.com/g5-mobile-track/image/upload/v1718777304/images/lmngzkii9zfo17ohxa6n.jpg',
+        ),
+      ];
+
+      test('should perform a get request on end point and with application/json header', () async {
+        when(mockClient.get(any, headers: anyNamed('headers')))
+            .thenAnswer((_) async => await http.Response(fixture('dummy_all_products_response'), 200));
+        remoteDataSourceImpl.getAllProducts();
+        verify(mockClient.get(Uri.parse('https://g5-flutter-learning-path-be.onrender.com/api/v1/products'),
+            headers: {'Content-Type': 'application/json'}));
+      });
+
+      test('should return ProductModel list when the response code is 200', () async {
+        when(mockClient.get(any, headers: anyNamed('headers')))
+            .thenAnswer((_) async => http.Response(fixture('dummy_all_products_response'), 200));
+        final result = await remoteDataSourceImpl.getAllProducts();
+        expect(result, isA<List<ProductModel>>());
+        expect(result, tProductModelList);
+      });
+
+      test('should throw a Server Exception when the response code is 404 or other', () async {
+        when(mockClient.get(any, headers: anyNamed('headers')))
+            .thenAnswer((_) async => http.Response('Something went wrong', 404));
+        final call = await remoteDataSourceImpl.getAllProducts;
+        expect(() => call(), throwsA(isA<ServerException>()));
       });
     });
 

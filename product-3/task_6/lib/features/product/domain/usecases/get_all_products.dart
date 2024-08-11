@@ -10,6 +10,6 @@ class GetAllProducts {
   const GetAllProducts({required this.getAllProductsRepository});
 
   Future<Either<Failure, List<ProductEntity>>> call() async{
-    return await getAllProductsRepository.getAllproduct();
+    return await getAllProductsRepository.getAllProducts();
   }
 }

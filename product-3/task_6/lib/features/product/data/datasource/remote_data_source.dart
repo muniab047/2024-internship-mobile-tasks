@@ -14,7 +14,7 @@ abstract class RemoteDataSource {
   Future <Unit> insertProduct(InsertProductParams insertProductParams);
   Future <Unit> updateProduct(UpdateProductParams updateProductParams);
   Future <Unit> deleteProduct(DeleteProductParams deleteProductParams);
-  Future<List<ProductModel>> getAllproducts();
+  Future<List<ProductModel>> getAllProducts();
  
   
   
@@ -94,9 +94,17 @@ class RemoteDataSourceImpl implements RemoteDataSource{
   }
   
   @override
-  Future<List<ProductModel>> getAllproducts() {
+  Future<List<ProductModel>> getAllProducts() async{
     // TODO: implement getAllproducts
-    throw UnimplementedError();
+    final response = await client.get(Uri.parse('https://g5-flutter-learning-path-be.onrender.com/api/v1/products'), headers: {'Content-Type' : 'application/json'});
+    if (response.statusCode == 200) {
+      final List<dynamic> productListJson = json.decode(response.body)['data'];
+      final List<ProductModel> productModelList = productListJson.map((productJson) => ProductModel.fromJson(productJson)).toList();
+      return productModelList;
+      
+    } else {
+      throw ServerException();
+    }
   }
 
 }

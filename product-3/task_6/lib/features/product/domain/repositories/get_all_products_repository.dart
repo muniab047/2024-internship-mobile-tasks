@@ -5,6 +5,6 @@ import '../entities/product_entity.dart';
 
 abstract class GetAllProductsRepository {
 
-  Future<Either<Failure, List<ProductEntity>>> getAllproduct();
+  Future<Either<Failure, List<ProductEntity>>> getAllProducts();
 
 }

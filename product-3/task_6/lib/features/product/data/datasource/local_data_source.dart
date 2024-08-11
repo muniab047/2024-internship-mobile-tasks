@@ -10,7 +10,7 @@ import '../models/product_model.dart';
 abstract class LocalDataSource {
   Future <ProductModel> getProduct(GetProductParams getProductParams);
   Future <Unit> cacheProduct (ProductModel productToCache);
-  Future<List<ProductModel>> getAllproducts();
+  Future<List<ProductModel>> getAllProducts();
   Future<Unit> cacheAllProducts(List<ProductModel> productModelsTocache);
  
 
@@ -45,13 +45,15 @@ class LocalDataSourceImpl implements LocalDataSource{
   }
   
   @override
-  Future<List<ProductModel>> getAllproducts(){
+  Future<List<ProductModel>> getAllProducts()async{
     // TODO: implement getAllproducts
-    final allProductJsonStrings = sharedPreferences.getStringList('CACHED_ALL_PRODUCTS');
-    if (allProductJsonStrings != null){
+    final allProductJsonString = sharedPreferences.getString('CACHED_ALL_PRODUCTS');
+    if (allProductJsonString != null){
 
-    final allProductModels = allProductJsonStrings.map((productJson)=> ProductModel.fromJson(json.decode(productJson))).toList();
-    return Future.value(allProductModels) ;
+    final List<dynamic> allProductsJson = await json.decode(allProductJsonString)['data'];
+    final List<ProductModel> allProductsModels = allProductsJson.map((productJson)=> ProductModel.fromJson(productJson)).toList();
+   
+    return allProductsModels;
     }
     else{
       throw CacheException();
@@ -62,8 +64,8 @@ class LocalDataSourceImpl implements LocalDataSource{
   @override
   Future<Unit> cacheAllProducts(List<ProductModel> productModelsTocache) {
     // TODO: implement cacheAllProducts
-    final allProductsJsonString = productModelsTocache.map((productModel)=> json.encode(productModel.toJson())).toList();
-    return sharedPreferences.setStringList('CACHED_ALL_PRODUCTS', allProductsJsonString).then((value) => unit);
+    final allProductsJsonString = json.encode(productModelsTocache);
+    return sharedPreferences.setString('CACHED_ALL_PRODUCTS', allProductsJsonString).then((value) => unit);
     
   }
 

@@ -26,6 +26,8 @@ import 'package:task_6/features/product/domain/entities/product_entity.dart'
     as _i11;
 import 'package:task_6/features/product/domain/repositories/delete_product_repository.dart'
     as _i12;
+import 'package:task_6/features/product/domain/repositories/get_all_products_repository.dart'
+    as _i21;
 import 'package:task_6/features/product/domain/repositories/get_product_repository.dart'
     as _i10;
 import 'package:task_6/features/product/domain/repositories/insert_product_repository.dart'
@@ -279,6 +281,33 @@ class MockLocalDataSource extends _i1.Mock implements _i14.LocalDataSource {
           ),
         )),
       ) as _i7.Future<_i2.Unit>);
+
+  @override
+  _i7.Future<List<_i3.ProductModel>> getAllProducts() => (super.noSuchMethod(
+        Invocation.method(
+          #getAllProducts,
+          [],
+        ),
+        returnValue:
+            _i7.Future<List<_i3.ProductModel>>.value(<_i3.ProductModel>[]),
+      ) as _i7.Future<List<_i3.ProductModel>>);
+
+  @override
+  _i7.Future<_i2.Unit> cacheAllProducts(
+          List<_i3.ProductModel>? productModelsTocache) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #cacheAllProducts,
+          [productModelsTocache],
+        ),
+        returnValue: _i7.Future<_i2.Unit>.value(_FakeUnit_2(
+          this,
+          Invocation.method(
+            #cacheAllProducts,
+            [productModelsTocache],
+          ),
+        )),
+      ) as _i7.Future<_i2.Unit>);
 }
 
 /// A class which mocks [RemoteDataSource].
@@ -356,6 +385,16 @@ class MockRemoteDataSource extends _i1.Mock implements _i15.RemoteDataSource {
           ),
         )),
       ) as _i7.Future<_i2.Unit>);
+
+  @override
+  _i7.Future<List<_i3.ProductModel>> getAllProducts() => (super.noSuchMethod(
+        Invocation.method(
+          #getAllProducts,
+          [],
+        ),
+        returnValue:
+            _i7.Future<List<_i3.ProductModel>>.value(<_i3.ProductModel>[]),
+      ) as _i7.Future<List<_i3.ProductModel>>);
 }
 
 /// A class which mocks [NetworkInfo].
@@ -882,4 +921,32 @@ class MockClient extends _i1.Mock implements _i5.Client {
         ),
         returnValueForMissingStub: null,
       );
+}
+
+/// A class which mocks [GetAllProductsRepository].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockGetAllProductsRepository extends _i1.Mock
+    implements _i21.GetAllProductsRepository {
+  MockGetAllProductsRepository() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i7.Future<_i2.Either<_i8.Failure, List<_i11.ProductEntity>>>
+      getAllProducts() => (super.noSuchMethod(
+            Invocation.method(
+              #getAllProducts,
+              [],
+            ),
+            returnValue: _i7.Future<
+                    _i2.Either<_i8.Failure, List<_i11.ProductEntity>>>.value(
+                _FakeEither_0<_i8.Failure, List<_i11.ProductEntity>>(
+              this,
+              Invocation.method(
+                #getAllProducts,
+                [],
+              ),
+            )),
+          ) as _i7.Future<_i2.Either<_i8.Failure, List<_i11.ProductEntity>>>);
 }

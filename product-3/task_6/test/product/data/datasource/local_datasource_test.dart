@@ -21,7 +21,7 @@ void main(){
 
   });
 
-  group('getProduct', (){
+  group('LocalDataSourceImpl - getProduct', (){
     final tProductModel = const ProductModel(image: 'https://res.cloudinary.com/g5-mobile-track/image/upload/v1718777132/images/zxjhzrflkvsjutgbmr0f.jpg',
         description: "Explore anime characters.",
         name: "Anime website",
@@ -50,7 +50,7 @@ void main(){
   });
 
 
-  group('cacheProduct', (){
+  group('LocalDataSourceImpl - cacheProduct', (){
     final tProductModel = const ProductModel(image: 'assets/img/p4.jpg',
         description: 'dddsd',
         name: 'Durby leather shoes',
@@ -67,5 +67,42 @@ void main(){
     });
 
   });
-  
+
+  group('LocalDataSourceImpl - getAllProducts', (){
+   List<ProductModel> tProductModelList = [
+    const ProductModel( id: '6672752cbd218790438efdb0',
+        name: 'Anime website',
+        description: 'Explore anime characters.',
+        price: 123.0,
+        image: 'https://res.cloudinary.com/g5-mobile-track/image/upload/v1718777132/images/zxjhzrflkvsjutgbmr0f.jpg'),
+    const ProductModel( id: '667275bab905525c145fe08f',
+        name: 'Anime website',
+        description: 'Explore anime characters.',
+        price: 123.0,
+        image: 'https://res.cloudinary.com/g5-mobile-track/image/upload/v1718777275/images/t7j2mqmcukrogvvausqj.jpg'),
+    const ProductModel( id: '667275d7b905525c145fe093',
+       name: 'Anime website',
+        description: 'Explore anime characters.',
+        price: 123.0,
+        image: 'https://res.cloudinary.com/g5-mobile-track/image/upload/v1718777304/images/lmngzkii9zfo17ohxa6n.jpg')];
+
+
+    test('should return product model list when there is one in cache', ()async{
+      when(mockSharedPreferences.getString(any)).thenReturn(fixture('dummy_all_products_response'));
+      final result = await localDataSource.getAllProducts();
+
+      verify(mockSharedPreferences.getString('CACHED_ALL_PRODUCTS'));
+      expect(result, tProductModelList);
+    });
+
+     test('should throw a cacheException when there is null in cache', ()async{
+      when(mockSharedPreferences.getString(any)).thenReturn(null);
+      final call = localDataSource.getAllProducts;
+
+
+      expect(() => call(), throwsA(isA<CacheException>()));
+    });
+
+
+  });
 }

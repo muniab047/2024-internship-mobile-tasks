@@ -143,10 +143,7 @@ class _AddPageState extends State<AddPage> {
                 textColor: const Color(0XFFFF1313),
                 foregroundColor: Colors.red,
 
-              ),
-
-             
-                      
+              ),                     
                   
                 ],
               
