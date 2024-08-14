@@ -1,5 +1,6 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
+import 'injection_container.dart' as di;
 
 
 import '../features/product/presentation/pages/add_page.dart';
@@ -10,7 +11,9 @@ import '../features/product/presentation/pages/search_page.dart';
 
 
 
-void main() {
+void main() async{
+  await di.init();
+
   runApp(
     DevicePreview(
     enabled: true,
