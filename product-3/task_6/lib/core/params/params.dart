@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/widgets.dart';
+import 'package:image_picker/image_picker.dart';
 
 class GetProductParams{
   final String id;
@@ -9,15 +12,22 @@ class GetProductParams{
 
 class UpdateProductParams{
   final String id;
-  final String name, description, image;
+  final String name, description;
   final double price;
 
   const UpdateProductParams({ 
     required this.id, 
-    required this.name, 
-    required this.image, 
+    required this.name,
     required this.price,
-    required this.description}); 
+    required this.description});
+
+   Map<String, dynamic> toJson(){
+    return{
+      'name' : name,
+      'description' : description,
+      'price' : price,
+    };
+   } 
 
   
 }
@@ -32,16 +42,15 @@ class DeleteProductParams{
 }
 
 class InsertProductParams{
-  final String id;
-  final String name, description, image;
-  final double price;
+  final String name, description, price;
+  final XFile image;
 
   const InsertProductParams({ 
-    required this.id, 
     required this.name, 
-    required this.image,
     required this.price,
-    required this.description});
+    required this.description,  
+    required this.image
+    });
 
 
 }

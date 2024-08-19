@@ -5,14 +5,15 @@ import 'custom_text.dart';
 import 'product_image.dart';
 
 class ProductCardWidget extends StatelessWidget {
-  final String image, product, price, item, rating;
+  final String image, product, description, id;
+  final double price;
 
   const ProductCardWidget(
       {required this.image,
       required this.product,
       required this.price,
-      required this.item,
-      required this.rating,
+      required this.description,
+      required this.id,
       super.key});
       
 
@@ -40,15 +41,23 @@ class ProductCardWidget extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      CustomTextWidget(
-                        text: product,
-                        color: const Color(0xFF3E3E3E),
-                        weight: FontWeight.w500,
-                        family: 'Poppins',
-                        size: 20,
+                      
+                      Expanded(
+                        child: CustomTextWidget(
+                          text: product,
+                          color: const Color(0xFF3E3E3E),
+                          weight: FontWeight.w500,
+                          family: 'Poppins',
+                          size: 20,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+
+                      SizedBox(
+                        width: ratio(35),
                       ),
                       CustomTextWidget(
-                        text: price,
+                        text: '9',
                         color: const Color(0xFF3E3E3E),
                         weight: FontWeight.w500,
                         family: 'Poppins',
@@ -61,11 +70,15 @@ class ProductCardWidget extends StatelessWidget {
                     
                     children: [
                       CustomTextWidget(
-                        text: item,
+                        text: 'xxx',
                         color: const Color(0xFFAAAAAA),
                         weight: FontWeight.w400,
                         family: 'Poppins',
                         size: 12,
+                      ),
+                      
+                      SizedBox(
+                        width: ratio(35),
                       ),
                       Row(
               
@@ -78,7 +91,7 @@ class ProductCardWidget extends StatelessWidget {
                         ),
                       
                       CustomTextWidget(
-                        text: rating,
+                        text: '4.0',
                         color: const Color(0xFFAAAAAA),
                         weight: FontWeight.w400,
                         family: 'Sora',

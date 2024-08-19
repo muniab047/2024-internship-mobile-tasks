@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:mockito/mockito.dart';
 import 'package:task_6/core/errors/failure.dart';
 import 'package:task_6/core/params/params.dart';
@@ -22,11 +23,12 @@ void main(){
 
   
   });
-  InsertProductParams insertProductParams = InsertProductParams(image: 'assets/img/p4.jpg',
+  InsertProductParams insertProductParams = InsertProductParams(
+    image: XFile('C:\\Users\\trt\\Pictures\\1b70f5fb14bc1f6bd9fac8e76629219a.jpg'),
         description: "Explore anime characters.",
         name: "Anime website",
-        price: 12.0,
-        id: "6672752cbd218790438efdb0",);
+        price: '12.0',
+        );
  
 
   test('should return unit entity when it succeed', ()async{

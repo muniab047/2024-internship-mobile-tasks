@@ -38,7 +38,7 @@ void main(){
     ProductModel(image: 'assets/img/p4.jpg',description: "Explore anime characters.",name: "Anime website", price: 12.0,id: "6672752cbd218790438efdb0",),
     ProductModel(image: 'assets/img/p4.jpg',description: "Explore anime characters.",name: "Anime website", price: 12.0,id: "6672752cbd218790438efdb0",)];
 
-  List<ProductEntity> tProductEntityList = tProductModelList;
+  List<ProductEntity> tProductEntityList = tProductModelList.map((productModel) => productModel.toEntity()).toList();
   Failure tServerFailure = ServerFailure();
   Failure tCacheFailure = CacheFailure();
 

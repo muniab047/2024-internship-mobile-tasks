@@ -26,7 +26,7 @@ class LocalDataSourceImpl implements LocalDataSource{
   @override
   Future<ProductModel> getProduct(GetProductParams getProductParams) {
     // TODO: implement getProduct
-    final jsonString = sharedPreferences.getString('CACHED_PRODUCT');
+    final jsonString = sharedPreferences.getString(getProductParams.id);
 
     if (jsonString != null){
 
@@ -40,7 +40,7 @@ class LocalDataSourceImpl implements LocalDataSource{
   @override
   Future<Unit> cacheProduct(ProductModel productToCache) {
     // TODO: implement cacheProduct
-    return sharedPreferences.setString('CACHED_PRODUCT', json.encode(productToCache.toJson())).then((value) => unit);
+    return sharedPreferences.setString(productToCache.id, json.encode(productToCache.toJson())).then((value) => unit);
     
   }
   

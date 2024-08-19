@@ -1,6 +1,7 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:mockito/mockito.dart';
 import 'package:task_6/core/errors/failure.dart';
 import 'package:task_6/core/params/params.dart';
@@ -125,11 +126,12 @@ void main() {
 
   
   group('insert Product', () {
-    const tInsertProductParams = InsertProductParams(image: 'assets/img/p4.jpg',
+    final  tInsertProductParams = InsertProductParams(
+      image: XFile('C:\\Users\\trt\\Pictures\\1b70f5fb14bc1f6bd9fac8e76629219a.jpg'),
       description: "Explore anime characters.",
       name: "Anime website",
-      price: 12.0,
-      id: "6672752cbd218790438efdb0",);
+      price: '12.0',
+      );
 
     blocTest<ProductBloc, ProductState>(
         'should return singleproduct loaded and loading',
@@ -142,8 +144,8 @@ void main() {
             .add(InsertProductEvent(insertProductParams: tInsertProductParams)),
         wait: Duration(milliseconds: 500),
         expect: () => {
-              Loading(),
-              InitialState()
+              Waiting(),
+              SuccessState(message: 'product inserted successfully')
             });
 
     blocTest<ProductBloc, ProductState>('should return failure',
@@ -155,13 +157,13 @@ void main() {
         act: (bloc) => bloc
             .add(InsertProductEvent(insertProductParams: tInsertProductParams)),
         wait: Duration(milliseconds: 500),
-        expect: () => {Loading(), ErrorState(message: 'server failure')});
+        expect: () => {Waiting(), ErrorState(message: 'server failure')});
   });
 
 
 
    group('update Product', () {
-    const tUpdateProductParams = UpdateProductParams(image: 'assets/img/p4.jpg',
+    const tUpdateProductParams = UpdateProductParams(
       description: "Explore anime characters.",
       name: "Anime website",
       price: 12.0,
@@ -178,8 +180,8 @@ void main() {
             .add(UpdateProductEvent(updateProductParams: tUpdateProductParams)),
         
         expect: () => {
-              Loading(),
-              InitialState()
+              Waiting(),
+              SuccessState(message: 'product updated successfully')
             });
 
     blocTest<ProductBloc, ProductState>('should return failure',
@@ -190,7 +192,7 @@ void main() {
         },
         act: (bloc) => bloc
             .add(UpdateProductEvent(updateProductParams: tUpdateProductParams)),
-        expect: () => {Loading(), ErrorState(message: 'server failure')});
+        expect: () => {Waiting(), ErrorState(message: 'server failure')});
   });
 
 
@@ -210,7 +212,7 @@ void main() {
       
         expect: () => {
               Loading(),
-              InitialState()
+              SuccessState(message: 'product deleted successfully')
             });
 
     blocTest<ProductBloc, ProductState>('should return failure',

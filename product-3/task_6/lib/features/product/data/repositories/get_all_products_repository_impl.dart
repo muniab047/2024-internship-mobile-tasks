@@ -24,7 +24,7 @@ class GetAllProductsRepositoryImpl implements GetAllProductsRepository{
 
       final allProductModels = await remoteDataSource.getAllProducts();
       localDataSource.cacheAllProducts(allProductModels);
-      final allProductEntities = allProductModels.map((product) => product as ProductEntity).toList();
+      final allProductEntities = allProductModels.map((product) => product.toEntity()).toList();
       return(Right(allProductEntities));
       }on ServerException{
         return Left(ServerFailure());
@@ -35,7 +35,7 @@ class GetAllProductsRepositoryImpl implements GetAllProductsRepository{
        try{
 
       final allProductModels = await localDataSource.getAllProducts();
-      final allProductEntities = allProductModels.map((product) => product as ProductEntity).toList();
+      final allProductEntities = allProductModels.map((product) => product.toEntity()).toList();
       return(Right(allProductEntities));
       }on CacheException{
         return Left(CacheFailure());

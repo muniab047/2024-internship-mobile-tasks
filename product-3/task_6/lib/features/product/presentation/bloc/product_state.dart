@@ -20,6 +20,10 @@ final class Loading extends ProductState{
 List<Object> get props => [];
 }
 
+final class Waiting extends ProductState{
+
+}
+
 final class LoadedSingleProductState extends ProductState{
   final ProductEntity productEntity;
 
@@ -36,6 +40,18 @@ final class LoadedAllProductState extends ProductState{
   LoadedAllProductState({required this.allProducts});
 }
 
+final class SuccessState extends ProductState{
+  final String message;
+
+  SuccessState({required this.message});
+
+
+  @override
+  List<Object> get props => [];
+
+}
+
+
 
 final class ErrorState extends ProductState{
   final String message;
@@ -47,3 +63,5 @@ final class ErrorState extends ProductState{
   List<Object> get props => [];
 
 }
+
+

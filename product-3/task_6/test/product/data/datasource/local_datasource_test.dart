@@ -21,6 +21,8 @@ void main(){
 
   });
 
+  final dummy_local_responce = 
+
   group('LocalDataSourceImpl - getProduct', (){
     final tProductModel = const ProductModel(image: 'https://res.cloudinary.com/g5-mobile-track/image/upload/v1718777132/images/zxjhzrflkvsjutgbmr0f.jpg',
         description: "Explore anime characters.",
@@ -28,13 +30,15 @@ void main(){
         price: 123.0,
         id: "6672752cbd218790438efdb0",);
 
-    final GetProductParams getProductParams = GetProductParams(id: '1');
+  final GetProductParams getProductParams = GetProductParams(id: '6672752cbd218790438efdb0');
+
+   final shared_preferences_json_response = '{"id": "6672752cbd218790438efdb0","name": "Anime website","description": "Explore anime characters.","price": 123,"imageUrl": "https://res.cloudinary.com/g5-mobile-track/image/upload/v1718777132/images/zxjhzrflkvsjutgbmr0f.jpg"}';
 
     test('should return product model when there is one in cache', ()async{
-      when(mockSharedPreferences.getString(any)).thenReturn(fixture('dummy_product_response'));
+      when(mockSharedPreferences.getString(any)).thenReturn(shared_preferences_json_response);
       final result = await localDataSource.getProduct(getProductParams);
 
-      verify(mockSharedPreferences.getString('CACHED_PRODUCT'));
+      verify(mockSharedPreferences.getString("6672752cbd218790438efdb0"));
       expect(result, tProductModel);
     });
 
@@ -62,7 +66,7 @@ void main(){
       final result = await localDataSource.cacheProduct(tProductModel);
       final expectedJsonString = json.encode(tProductModel.toJson());
 
-      verify(mockSharedPreferences.setString('CACHED_PRODUCT', expectedJsonString));
+      verify(mockSharedPreferences.setString('1', expectedJsonString));
       expect(result, unit);
     });
 

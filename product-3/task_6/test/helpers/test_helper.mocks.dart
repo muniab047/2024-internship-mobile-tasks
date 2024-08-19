@@ -185,6 +185,16 @@ class _FakeDeleteProductRepository_11 extends _i1.SmartFake
         );
 }
 
+class _FakeUri_12 extends _i1.SmartFake implements Uri {
+  _FakeUri_12(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [UpdateProductRepository].
 ///
 /// See the documentation for Mockito's code generation for more information.
@@ -1207,4 +1217,146 @@ class MockDeleteProduct extends _i1.Mock implements _i26.DeleteProduct {
           ),
         )),
       ) as _i11.Future<_i2.Either<_i12.Failure, _i2.Unit>>);
+}
+
+/// A class which mocks [MultipartRequest].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMultipartRequest extends _i1.Mock implements _i5.MultipartRequest {
+  MockMultipartRequest() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  Map<String, String> get fields => (super.noSuchMethod(
+        Invocation.getter(#fields),
+        returnValue: <String, String>{},
+      ) as Map<String, String>);
+
+  @override
+  List<_i5.MultipartFile> get files => (super.noSuchMethod(
+        Invocation.getter(#files),
+        returnValue: <_i5.MultipartFile>[],
+      ) as List<_i5.MultipartFile>);
+
+  @override
+  int get contentLength => (super.noSuchMethod(
+        Invocation.getter(#contentLength),
+        returnValue: 0,
+      ) as int);
+
+  @override
+  set contentLength(int? value) => super.noSuchMethod(
+        Invocation.setter(
+          #contentLength,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  String get method => (super.noSuchMethod(
+        Invocation.getter(#method),
+        returnValue: _i20.dummyValue<String>(
+          this,
+          Invocation.getter(#method),
+        ),
+      ) as String);
+
+  @override
+  Uri get url => (super.noSuchMethod(
+        Invocation.getter(#url),
+        returnValue: _FakeUri_12(
+          this,
+          Invocation.getter(#url),
+        ),
+      ) as Uri);
+
+  @override
+  Map<String, String> get headers => (super.noSuchMethod(
+        Invocation.getter(#headers),
+        returnValue: <String, String>{},
+      ) as Map<String, String>);
+
+  @override
+  bool get persistentConnection => (super.noSuchMethod(
+        Invocation.getter(#persistentConnection),
+        returnValue: false,
+      ) as bool);
+
+  @override
+  set persistentConnection(bool? value) => super.noSuchMethod(
+        Invocation.setter(
+          #persistentConnection,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  bool get followRedirects => (super.noSuchMethod(
+        Invocation.getter(#followRedirects),
+        returnValue: false,
+      ) as bool);
+
+  @override
+  set followRedirects(bool? value) => super.noSuchMethod(
+        Invocation.setter(
+          #followRedirects,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  int get maxRedirects => (super.noSuchMethod(
+        Invocation.getter(#maxRedirects),
+        returnValue: 0,
+      ) as int);
+
+  @override
+  set maxRedirects(int? value) => super.noSuchMethod(
+        Invocation.setter(
+          #maxRedirects,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  bool get finalized => (super.noSuchMethod(
+        Invocation.getter(#finalized),
+        returnValue: false,
+      ) as bool);
+
+  @override
+  _i5.ByteStream finalize() => (super.noSuchMethod(
+        Invocation.method(
+          #finalize,
+          [],
+        ),
+        returnValue: _i20.dummyValue<_i5.ByteStream>(
+          this,
+          Invocation.method(
+            #finalize,
+            [],
+          ),
+        ),
+      ) as _i5.ByteStream);
+
+  @override
+  _i11.Future<_i5.StreamedResponse> send() => (super.noSuchMethod(
+        Invocation.method(
+          #send,
+          [],
+        ),
+        returnValue:
+            _i11.Future<_i5.StreamedResponse>.value(_FakeStreamedResponse_6(
+          this,
+          Invocation.method(
+            #send,
+            [],
+          ),
+        )),
+      ) as _i11.Future<_i5.StreamedResponse>);
 }

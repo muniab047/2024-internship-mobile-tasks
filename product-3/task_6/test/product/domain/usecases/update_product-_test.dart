@@ -23,7 +23,7 @@ void main(){
 
   
   });
-  UpdateProductParams updateProductParams = UpdateProductParams(image: 'assets/img/p4.jpg',
+  UpdateProductParams updateProductParams = UpdateProductParams(
         description: "Explore anime characters.",
         name: "Anime website",
         price: 12.0,

@@ -27,6 +27,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       // TODO: implement event handler
       emit(Loading());
       final result = await getProduct.call(getProductParams: event.getProductParams);
+      
       result.fold(
         (failure){
           emit(ErrorState(message: 'server failure'));
@@ -55,7 +56,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
      });
 
     on<UpdateProductEvent>((event, emit) async{
-      emit(Loading());
+      emit(Waiting());
       final result = await updateProduct.call(updateProductParams: event.updateProductParams);
 
       result.fold(
@@ -63,7 +64,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
           emit(ErrorState(message: 'server failure'));
         },
         (data){
-          emit(InitialState());
+          emit(SuccessState(message: 'Product updated successfully!'));
           
         }
       );
@@ -79,14 +80,14 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
           emit(ErrorState(message: 'server failure'));
         },
         (data){
-          emit(InitialState());
+          emit(SuccessState(message: 'Product deleted successfully!'));
           
         }
       );
     });
 
      on<InsertProductEvent>((event, emit) async{
-      emit(Loading());
+      emit(Waiting());
       final result = await insertProduct.call(insertProductParams: event.insertProductParams);
 
       result.fold(
@@ -94,13 +95,15 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
           emit(ErrorState(message: 'server failure'));
         },
         (data){
-          emit(InitialState());
+          emit(SuccessState(message: 'Product added successfully!'));
           
         }
       );
     });
+
+
   }
-}
+} 
 
 EventTransformer<T> debounce <T>(Duration duration){
   return (events, mapper) => events.debounceTime(duration).flatMap(mapper);

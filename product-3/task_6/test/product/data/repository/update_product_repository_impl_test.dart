@@ -24,7 +24,7 @@ void main(){
   });
 
 
-  UpdateProductParams updateProductParams = const UpdateProductParams(image: 'assets/img/p4.jpg',
+  UpdateProductParams updateProductParams = const UpdateProductParams(
         description: "Explore anime characters.",
         name: "Anime website",
         price: 12.0,

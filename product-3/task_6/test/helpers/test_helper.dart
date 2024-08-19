@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:http/http.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:mockito/annotations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -38,6 +39,7 @@ import 'package:http/http.dart' as http;
     UpdateProduct,
     InsertProduct,
     DeleteProduct,
+    MultipartRequest,
     
   ],
   

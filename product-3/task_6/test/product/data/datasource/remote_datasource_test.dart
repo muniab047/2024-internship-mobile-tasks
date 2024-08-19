@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:mockito/mockito.dart';
 import 'package:task_6/core/errors/exception.dart';
 import 'package:task_6/core/params/params.dart';
@@ -18,11 +19,13 @@ void main(){
   late RemoteDataSourceImpl remoteDataSourceImpl;
   late MockClient mockClient;
   late GetProductParams getProductParams;
+  late MockMultipartRequest mockMultipartRequest;
 
 
   setUp((){
     mockClient = MockClient();
     remoteDataSourceImpl = RemoteDataSourceImpl(client : mockClient);
+    mockMultipartRequest = MockMultipartRequest();
     
 
   });
@@ -41,7 +44,7 @@ void main(){
       when(mockClient.get(any, headers: anyNamed('headers'))).thenAnswer((_) async => http.Response(fixture('dummy_product_response'), 200));
       final result = await remoteDataSourceImpl.getProduct(getProductParams);
       expect(result, isA<ProductModel>());
-      expect(result, ProductModel.fromJson(json.decode(fixture('dummy_product_response'))));
+      expect(result, ProductModel.fromJson(json.decode(fixture('dummy_product_response'))['data']));
     });
 
     test('should throw a Server Exception when the response code is 404 or other', () async {
@@ -53,38 +56,33 @@ void main(){
   });
 
     group('insert product', () {
-      final insertProductParams = const InsertProductParams(
-      image: 'https://res.cloudinary.com/g5-mobile-track/image/upload/v1718777132/images/zxjhzrflkvsjutgbmr0f.jpg',
-      description: "Explore anime characters.",
-      name: "Anime website",
-      price: 123.0,
-      id: "6672752cbd218790438efdb0",
-      );
+      final insertProductParams = InsertProductParams(
+                                      image: XFile('C:\\Users\\trt\\Pictures\\1b70f5fb14bc1f6bd9fac8e76629219a.jpg'),
+                                      description: "Explore anime characters.",
+                                      name: "Anime website",
+                                      price: '123.0',
+);
 
-      test('should perform a post request to the end point', () async {
-      when(mockClient.post(any, body: anyNamed('body'), headers: anyNamed('headers')))
-        .thenAnswer((_) async => http.Response('', 200));
+
+      test('should perform a post request to the end point', ()async {
+      when(mockClient.send(any)).thenAnswer((_)async=> http.StreamedResponse(Stream.empty(), 201));
       await remoteDataSourceImpl.insertProduct(insertProductParams);
-      verify(mockClient.post(
-        Uri.parse('https://g5-flutter-learning-path-be.onrender.com/api/v1/products'),
-        headers: {'Content-Type': 'application/json'},
-        body: anyNamed('body'),
-      ));
+
+      verify(mockClient.send(any));
+
       });
 
       test('should return success when it is added successfully', () async {
-      when(mockClient.post(any, body: anyNamed('body'), headers: anyNamed('headers')))
-        .thenAnswer((_) async => http.Response('', 200));
-      final post = await remoteDataSourceImpl.insertProduct(insertProductParams);
-
-      expect(post, unit);
+      when(mockClient.send(any)).thenAnswer((_)async=> http.StreamedResponse(Stream.empty(), 201));
+      final result = await remoteDataSourceImpl.insertProduct(insertProductParams);
+      verify(mockClient.send(any));
+      expect(result, unit);
       });
 
       test('should return ServerException if the status code is 404 or other', () async {
-      when(mockClient.post(any, body: anyNamed('body'), headers: anyNamed('headers')))
-        .thenAnswer((_) async => http.Response('something wrong', 400));
+ 
+       when(mockClient.send(any)).thenAnswer((_)async=> http.StreamedResponse(Stream.empty(), 404));
       final call = await remoteDataSourceImpl.insertProduct;
-
       expect(() => call(insertProductParams), throwsA(isA<ServerException>()));
       });
     });
@@ -93,7 +91,6 @@ void main(){
 
     group('update product', () {
       final updateProductParams = const UpdateProductParams(
-      image: 'https://res.cloudinary.com/g5-mobile-track/image/upload/v1718777132/images/zxjhzrflkvsjutgbmr0f.jpg',
       description: "Explore anime characters.",
       name: "Anime website",
       price: 123.0,
@@ -101,13 +98,7 @@ void main(){
       );
 
       test('should perform a put request to the end point', () async {
-      final jsonString = json.encode(ProductModel(
-        image: updateProductParams.image,
-        description: updateProductParams.description,
-        name: updateProductParams.name,
-        price: updateProductParams.price,
-        id: updateProductParams.id,
-      ).toJson());
+      final jsonString = json.encode(updateProductParams.toJson());
 
       when(mockClient.put(any, body: anyNamed('body'), headers: anyNamed('headers')))
         .thenAnswer((_) async => http.Response('', 200));

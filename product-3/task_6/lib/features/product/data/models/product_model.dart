@@ -36,5 +36,15 @@ class ProductModel extends ProductEntity{
 
   }
 
+  ProductEntity toEntity(){
+    final productEntity = ProductEntity(
+              image: image, 
+              name: name, 
+              price: price, 
+              id: id, 
+              description: description);
+    return productEntity;
+  }
+
  
 }

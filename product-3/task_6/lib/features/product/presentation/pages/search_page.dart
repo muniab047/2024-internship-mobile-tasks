@@ -1,39 +1,35 @@
 import 'package:flutter/material.dart';
 
+import '../../domain/entities/product_entity.dart';
+import '../widgets/card_grid_view.dart';
 import '../widgets/product_card.dart';
 import 'details_page.dart';
 
 class SearchPage extends StatefulWidget {
-  const SearchPage({super.key});
+  final List<ProductEntity> allProducts;
+  const SearchPage({super.key, required this.allProducts});
 
   @override
   State<SearchPage> createState() => _SearchPageState();
 }
 
 class _SearchPageState extends State<SearchPage> {
+  late List<ProductEntity> _allProducts = widget.allProducts;
+  late List<ProductEntity> _filteredProducts = widget.allProducts;
+  final TextEditingController _searchController = TextEditingController();
+
   double ratio(double num) {
     return num * MediaQuery.of(context).size.width / 500;
   }
+  void _filterProducts(String query) {
+    setState(() {
+      _filteredProducts = _allProducts
+          .where((product) => product.name.toLowerCase().contains(query.toLowerCase()))
+          .toList();
+    });
+  }
+  
 
-  final products = [
-    {'product' : 'Derby Leather', 
-    'image': 'assets/img/p5.png', 
-    'price': '\$120',
-    'item' : 'Men’s shoe',
-    'rating': '(4.0)'},
-
-    {'product' : 'Sneakers', 
-    'image': 'assets/img/p1.jpg', 
-    'price': '\$150',
-    'item' : "women's shoes",
-    'rating': '(4.8)'} ,
-
-    {'product' : 'axc', 
-    'image': 'assets/img/p3.jpg', 
-    'price': '\$12',
-    'item' : "kid's shoes",
-    'rating': '(4.4)'} ,
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -72,8 +68,10 @@ class _SearchPageState extends State<SearchPage> {
                   children: [
                     Row(
                       children: [
-                        const Expanded(
+                        Expanded(
                           child: TextField(
+                            controller: _searchController,
+                            onChanged: _filterProducts,
                             decoration: InputDecoration(
                                 label: Text(
                                   'Leather',
@@ -109,48 +107,11 @@ class _SearchPageState extends State<SearchPage> {
                     ),
 
                     SizedBox(height: ratio(27)),
-
                     SizedBox(
                       height: ratio(500),
-                      child: GridView.builder(
-                        gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                          maxCrossAxisExtent: 400,
-                          crossAxisSpacing: 10,
-                          mainAxisSpacing: 10,
-                          mainAxisExtent: 230,
-                        ),
-                        itemCount: products.length,
-                        itemBuilder: (context, index) {
-                          final product = products[index];
-                          final name = product['product'],
-                              price = product['price'],
-                              item = product['item'],
-                              image = product['image'],
-                              rating = product['rating'];
-                          return GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => DetailsPage(
-                                  image: image ?? '',
-                                  item: item ?? '',
-                                  product: name ?? '',
-                                  price: price ?? '',
-                                  rating: rating ?? '',
-                                ),
-                              ),
-                            );
-                          },
-                          child: ProductCardWidget(
-                            image: image ?? '',
-                            item: item ?? '',
-                            price: price ?? '',
-                            product: name ?? '',
-                            rating: rating ?? '',
-                          ));
-                        },
-                      ),
-                    )
+                      child: CardGridView(allProducts: _filteredProducts)),
+
+                    
                   ],
                 ),
               ),

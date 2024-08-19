@@ -16,7 +16,7 @@ void main(){
         id: "6672752cbd218790438efdb0",
       );
       
-   Map <String, dynamic> testJson = json.decode(fixture('dummy_product_response'));
+   Map <String, dynamic> testJson = json.decode(fixture('dummy_product_response'))['data'];
   test('should be subclass of product entity', () {
     expect(testProductModel, isA<ProductEntity>());
   });

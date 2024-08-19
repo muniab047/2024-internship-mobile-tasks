@@ -13,45 +13,33 @@ import '../widgets/custom_button.dart';
 import '../widgets/custom_text.dart';
 import '../widgets/custom_text_field.dart';
 import '../widgets/loading.dart';
+import '../widgets/product_image.dart';
 
-class AddPage extends StatefulWidget {
-  const AddPage({super.key});
+class UpdatePage extends StatefulWidget {
+  final String image, name, description, id;
+  final double price;
+  const UpdatePage({super.key, required this.image, required this.name, required this.description, required this.price, required this.id});
 
   @override
-  State<AddPage> createState() => _AddPageState();
+  State<UpdatePage> createState() => _UpdatePageState();
 }
 
-class _AddPageState extends State<AddPage> {
-  String productName = '',
-      productPrice = '',
-      productDescription = '',
-      productCategory = '';
-  XFile? productImage;
-
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _priceController = TextEditingController();
-  final TextEditingController _descriptionController = TextEditingController();
-  final TextEditingController _categoryController = TextEditingController();
+class _UpdatePageState extends State<UpdatePage> {
+  late String productName = widget.name,
+      productPrice = widget.price.toString(),
+      productDescription = widget.description,
+      productCategory = '',
+      id = widget.id, 
+      image = widget.image;
+      
 
 
-  Future<void> pickImage() async {
-    final pickedFile =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
 
-    setState(() {
-      productImage = pickedFile;
-    });
-  }
+  late final TextEditingController _nameController = TextEditingController(text: productName);
+  late final TextEditingController _priceController= TextEditingController(text: productPrice);
+  late final TextEditingController _descriptionController = TextEditingController(text: productDescription);
+  late final TextEditingController _categoryController = TextEditingController();
 
-  void clearTextFeild (){
-      _nameController.clear();
-      _categoryController.clear();
-      _descriptionController.clear();
-      _priceController.clear();
-      setState(() {
-        productImage = null;
-      });
-  }
 
 
   @override
@@ -71,7 +59,7 @@ class _AddPageState extends State<AddPage> {
             size: ratio(16),
           ),
           title: CustomTextWidget(
-              text: 'Add Product',
+              text: 'Update Product',
               family: 'Poppins',
               weight: FontWeight.w500,
               size: ratio(16),
@@ -85,9 +73,8 @@ class _AddPageState extends State<AddPage> {
             // Show a snackbar when the product is successfully added
             ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text(state.message)),);
-            clearTextFeild();
-            Navigator.of(context).pushNamed('/');
-            context.read<ProductBloc>().add(LoadAllProductEvent());
+            Navigator.pop(context);
+            context.read<ProductBloc>().add(GetSingleProductEvent(getProductParams: GetProductParams(id: id)));
 
           } else if (state is ErrorState) {
             // Show a snackbar when there's an error
@@ -104,42 +91,14 @@ class _AddPageState extends State<AddPage> {
                 child: Form(
                     child: ListView(
                   children: [
-                    GestureDetector(
-                      onTap: () {
-                        pickImage();
-                      },
-                      child: Container(
-                        width: double.infinity,
-                        height: ratio(130),
-                        decoration: BoxDecoration(
-                            color: const Color(0XFFF3F3F3),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(ratio(16)))),
-                        child: productImage == null
-                            ? Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.image_outlined,
-                                    size: ratio(27),
-                                    color: const Color(0XFF3E3E3E),
-                                  ),
-                                  SizedBox(height: ratio(2)),
-                                  Text(
-                                    'Upload image',
-                                    style: TextStyle(
-                                      fontFamily: 'Poppin',
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: ratio(13),
-                                    ),
-                                  ),
-                                ],
-                              )
-                            : Image.file(
-                                File(productImage!.path),
-                                fit: BoxFit.fill,
-                              ),
-                      ),
+                    Container(
+                      width: double.infinity,
+                      height: ratio(130),
+                      decoration: BoxDecoration(
+                          color: const Color(0XFFF3F3F3),
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(ratio(16)))),
+                      child: ProductImageWidget(image: image, fit: BoxFit.fill)
                     ),
                     SizedBox(
                       height: ratio(20),
@@ -209,19 +168,19 @@ class _AddPageState extends State<AddPage> {
                       backgroundColor: const Color(0XFF3F51F3),
                       padding: const EdgeInsets.symmetric(vertical: 19),
                       borderRadius: ratio(8),
-                      text: 'ADD',
+                      text: 'UPDATE',
                       textColor: Colors.white,
                       onPressed: () {
                         if (productName != '' &&
                             productDescription != '' &&
-                            productPrice != '' &&
-                            productImage != null) {
-                          context.read<ProductBloc>().add(InsertProductEvent(
-                              insertProductParams: InsertProductParams(
+                            productPrice != '') {
+                          context.read<ProductBloc>().add(UpdateProductEvent(
+                              updateProductParams: UpdateProductParams(
+                                  id: id,
                                   name: productName as String,
-                                  price: productPrice as String,
+                                  price: double.parse(productPrice),
                                   description: productDescription as String,
-                                  image: productImage as XFile)));
+                                  )));
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(content: Text('fill all fields')));

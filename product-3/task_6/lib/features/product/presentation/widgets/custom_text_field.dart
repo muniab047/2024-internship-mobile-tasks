@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'custom_text.dart';
 
@@ -7,6 +8,12 @@ class CustomTextFieldWidget extends StatelessWidget {
   final Color? enableBorderColor, focusedBorderColor, fillColor;
   final int?  maxLines;
   final String label;
+  final ValueChanged? onChanged;
+  final TextInputType? textInputType;
+  final List<TextInputFormatter> ? inputFormatter;
+  final TextEditingController? controller;
+  
+  
   
   const CustomTextFieldWidget({this.enableBorderColor,
                         this.fillColor,
@@ -16,7 +23,9 @@ class CustomTextFieldWidget extends StatelessWidget {
                         this.sizedBox,
                         required this.label,
                         this.maxHeight,
-                        super.key});
+                        this.onChanged,
+                        this.textInputType,
+                        super.key, this.inputFormatter, this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +36,7 @@ class CustomTextFieldWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        
         CustomTextWidget(text: label,
             family: 'Poppins',
             weight: FontWeight.w500,
@@ -36,7 +46,11 @@ class CustomTextFieldWidget extends StatelessWidget {
        
         SizedBox(height: sizedBox),
         TextFormField(
+          controller: controller,
+          
           maxLines: maxLines,
+          keyboardType: textInputType,
+          inputFormatters: inputFormatter,
           decoration: InputDecoration(
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: enableBorderColor ?? Colors.grey),
@@ -54,6 +68,7 @@ class CustomTextFieldWidget extends StatelessWidget {
                 
                 
               )),
+          onChanged: onChanged,
         )
       ],
     );
