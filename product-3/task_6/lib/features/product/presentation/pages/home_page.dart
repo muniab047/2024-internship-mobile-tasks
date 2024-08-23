@@ -79,8 +79,8 @@ class _HomePageState extends State<HomePage> {
                       height: ratio(40),
                       child: Image.asset('assets/icon/image1.png')),
                 ],
+              ),)
               ),
-            )),
         body: Container(
             padding:
                 EdgeInsets.fromLTRB(ratio(20), ratio(5), ratio(20), ratio(5)),
@@ -136,7 +136,9 @@ class _HomePageState extends State<HomePage> {
                     else if (state is ErrorState){
                       return Center(child: Text(state.message)); 
                     }
+                   
                     else{
+                      print(state);
                       return Center(child: Text('sth wrong')); 
                     }
                 

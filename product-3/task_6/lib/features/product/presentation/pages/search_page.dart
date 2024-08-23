@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 
 import '../../domain/entities/product_entity.dart';
+import '../bloc/product_bloc.dart';
 import '../widgets/card_grid_view.dart';
 import '../widgets/product_card.dart';
 import 'details_page.dart';
@@ -14,6 +17,9 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
+
+
+  
   late List<ProductEntity> _allProducts = widget.allProducts;
   late List<ProductEntity> _filteredProducts = widget.allProducts;
   final TextEditingController _searchController = TextEditingController();
@@ -28,7 +34,6 @@ class _SearchPageState extends State<SearchPage> {
           .toList();
     });
   }
-  
 
 
   @override

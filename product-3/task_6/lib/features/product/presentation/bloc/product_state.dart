@@ -40,10 +40,32 @@ final class LoadedAllProductState extends ProductState{
   LoadedAllProductState({required this.allProducts});
 }
 
-final class SuccessState extends ProductState{
+final class DeleteSuccessState extends ProductState{
   final String message;
 
-  SuccessState({required this.message});
+  DeleteSuccessState({required this.message});
+
+
+  @override
+  List<Object> get props => [];
+
+}
+
+final class UpdateSuccessState extends ProductState{
+  final String message;
+
+  UpdateSuccessState({required this.message});
+
+
+  @override
+  List<Object> get props => [];
+
+}
+
+final class InsertSuccessState extends ProductState{
+  final String message;
+
+  InsertSuccessState({required this.message});
 
 
   @override

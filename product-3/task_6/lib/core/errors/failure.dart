@@ -10,3 +10,7 @@ class ServerFailure extends Failure{
 class CacheFailure extends Failure{}
 
 class ConnectionFailure extends Failure{}
+
+class Unauthorized extends Failure{
+  
+}

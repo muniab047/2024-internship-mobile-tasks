@@ -55,6 +55,8 @@ class _DetailsPageState extends State<DetailsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final productBloc = BlocProvider.of<ProductBloc>(context);
+
     double ratio(double num) {
       return num * MediaQuery.of(context).size.width / 350;
     }
@@ -64,12 +66,11 @@ class _DetailsPageState extends State<DetailsPage> {
       child: BlocListener<ProductBloc, ProductState>(
         listener: (context, state) {
           // TODO: implement listener
-            if (state is SuccessState) {
+            if (state is DeleteSuccessState) {
             // Show a snackbar when the product is successfully added
             ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text(state.message)),);
-            Navigator.pop(context);
-            context.read<ProductBloc>().add(LoadAllProductEvent());
+            Navigator.of(context).pushNamed('/home');
 
           } else if (state is ErrorState) {
             // Show a snackbar when there's an error
@@ -77,6 +78,7 @@ class _DetailsPageState extends State<DetailsPage> {
               SnackBar(content: Text(state.message)),
             );
           }
+  
         },
         child: BlocBuilder<ProductBloc, ProductState>(
           builder: (context, state) {
@@ -109,9 +111,7 @@ class _DetailsPageState extends State<DetailsPage> {
                           ),
                           child: CustomIconButtonWidget(
                               onPressed: () {
-                                context
-                                    .read<ProductBloc>()
-                                    .add(LoadAllProductEvent());
+                                //Navigator.pop(context);
                                 Navigator.pop(context);
                               },
                               icon: Icons.keyboard_arrow_left_sharp,
@@ -229,7 +229,10 @@ class _DetailsPageState extends State<DetailsPage> {
                                           description:
                                               state.productEntity.description,
                                           price: state.productEntity.price,
-                                          id: state.productEntity.id)));
+                                          id: state.productEntity.id))).then((_){
+                                            final getProductParams = GetProductParams(id: widget.id);
+                                            productBloc.add(GetSingleProductEvent(getProductParams: getProductParams));
+                                          });
                                 },
                               ),
                             ),
@@ -263,7 +266,9 @@ class _DetailsPageState extends State<DetailsPage> {
                   ),
                 ],
               );
-            } else {
+            }
+             else {
+              print(state);
               return Center(
                 child: Text('state didnt initiate'),
               );

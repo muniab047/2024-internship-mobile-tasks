@@ -81,13 +81,14 @@ class _AddPageState extends State<AddPage> {
         body: BlocListener<ProductBloc, ProductState>(
           listener: (context, state) {
             // TODO: implement listener
-              if (state is SuccessState) {
+              if (state is InsertSuccessState) {
             // Show a snackbar when the product is successfully added
             ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text(state.message)),);
             clearTextFeild();
-            Navigator.of(context).pushNamed('/');
-            context.read<ProductBloc>().add(LoadAllProductEvent());
+            Navigator.of(context).pushNamed('/home');
+            //context.read<ProductBloc>().add(LoadAllProductEvent());
+            //Navigator.of(context).pop();
 
           } else if (state is ErrorState) {
             // Show a snackbar when there's an error

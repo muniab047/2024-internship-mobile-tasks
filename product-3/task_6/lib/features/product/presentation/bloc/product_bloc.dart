@@ -52,6 +52,9 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
           emit(LoadedAllProductState(allProducts: data));
 
         });
+      print('hyy');
+
+      
       
      });
 
@@ -64,7 +67,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
           emit(ErrorState(message: 'server failure'));
         },
         (data){
-          emit(SuccessState(message: 'Product updated successfully!'));
+          emit(UpdateSuccessState(message: 'Product updated successfully!'));
           
         }
       );
@@ -80,10 +83,11 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
           emit(ErrorState(message: 'server failure'));
         },
         (data){
-          emit(SuccessState(message: 'Product deleted successfully!'));
+          emit(DeleteSuccessState(message: 'Product deleted successfully!'));
           
         }
       );
+      
     });
 
      on<InsertProductEvent>((event, emit) async{
@@ -95,7 +99,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
           emit(ErrorState(message: 'server failure'));
         },
         (data){
-          emit(SuccessState(message: 'Product added successfully!'));
+          emit(InsertSuccessState(message: 'Product added successfully!'));
           
         }
       );

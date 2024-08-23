@@ -1,9 +1,12 @@
 import 'dart:io';
 
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:mockito/annotations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:task_6/features/authentication/data/data%20sources/local_data_source.dart';
+import 'package:task_6/features/authentication/data/data%20sources/remote_data_source.dart';
 import 'package:task_6/features/product/data/datasource/local_data_source.dart';
 import 'package:task_6/features/product/domain/repositories/delete_product_repository.dart';
 import 'package:task_6/features/product/domain/repositories/get_all_products_repository.dart';
@@ -40,6 +43,9 @@ import 'package:http/http.dart' as http;
     InsertProduct,
     DeleteProduct,
     MultipartRequest,
+    FlutterSecureStorage,
+    AuthRemoteDataSource,
+    AuthLocalDataSource,
     
   ],
   

@@ -14,6 +14,7 @@ import '../widgets/custom_text.dart';
 import '../widgets/custom_text_field.dart';
 import '../widgets/loading.dart';
 import '../widgets/product_image.dart';
+import 'details_page.dart';
 
 class UpdatePage extends StatefulWidget {
   final String image, name, description, id;
@@ -40,7 +41,7 @@ class _UpdatePageState extends State<UpdatePage> {
   late final TextEditingController _descriptionController = TextEditingController(text: productDescription);
   late final TextEditingController _categoryController = TextEditingController();
 
-
+  
 
   @override
   Widget build(BuildContext context) {
@@ -69,12 +70,11 @@ class _UpdatePageState extends State<UpdatePage> {
         body: BlocListener<ProductBloc, ProductState>(
           listener: (context, state) {
             // TODO: implement listener
-              if (state is SuccessState) {
+              if (state is UpdateSuccessState) {
             // Show a snackbar when the product is successfully added
             ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text(state.message)),);
-            Navigator.pop(context);
-            context.read<ProductBloc>().add(GetSingleProductEvent(getProductParams: GetProductParams(id: id)));
+            Navigator.pushNamed(context, '/home');
 
           } else if (state is ErrorState) {
             // Show a snackbar when there's an error
